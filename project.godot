@@ -11,10 +11,19 @@ config_version=5
 [application]
 
 config/name="4man25jam"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://src/scenes/world.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://src/globals/globalscenes/globals.tscn"
+Signalbus="*res://src/globals/globalscenes/signalbus.tscn"
 
 [dotnet]
 
 project/assembly_name="4man25jam"
+
+[global_group]
+
+player=""

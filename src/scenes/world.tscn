@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2y8715mc2441"]
+
+[ext_resource type="Script" path="res://src/scripts/playahh.cs" id="1_t44ou"]
+[ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="2_ofqu2"]
+[ext_resource type="Script" path="res://src/scripts/Coin.cs" id="3_6rq48"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_erdoe"]
+size = Vector2(56, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mhayn"]
+size = Vector2(128, 128)
+
+[node name="world" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["player"]]
+position = Vector2(580, 320)
+script = ExtResource("1_t44ou")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_ofqu2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_erdoe")
+
+[node name="coin" type="Area2D" parent="."]
+position = Vector2(870, 322)
+script = ExtResource("3_6rq48")
+
+[node name="Sprite2D" type="Sprite2D" parent="coin"]
+modulate = Color(1, 100, 0, 1)
+texture = ExtResource("2_ofqu2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="coin"]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_mhayn")
+
+[connection signal="body_entered" from="coin" to="coin" method="_on_body_entered"]
