@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://du3eoicf0hcow"]
+[gd_scene load_steps=6 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
 [ext_resource type="Texture2D" uid="uid://brcdjbpbwb8oe" path="res://src/textures/bubble.png" id="1_hdyg6"]
+[ext_resource type="PackedScene" uid="uid://bxoday7sk4xic" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
+[ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="3_admt3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xafi"]
 radius = 64.0
 
-[node name="Bubble" type="CharacterBody2D" node_paths=PackedStringArray("bubblesprite")]
+[node name="Bubble" type="CharacterBody2D" node_paths=PackedStringArray("bubblesprite", "aimrotater")]
 script = ExtResource("1_23kea")
 bubblesprite = NodePath("bubblesprite")
+aimrotater = NodePath("aimcircle")
+bubbleproj = ExtResource("2_v1hjq")
 
 [node name="bubblesprite" type="Sprite2D" parent="."]
 scale = Vector2(0.256, 0.256)
@@ -16,3 +20,22 @@ texture = ExtResource("1_hdyg6")
 
 [node name="bubblecollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8xafi")
+
+[node name="aimcircle" type="Node2D" parent="."]
+
+[node name="aimtowards" type="Marker2D" parent="aimcircle"]
+position = Vector2(176, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="aimcircle/aimtowards"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_admt3")
+
+[node name="startchargespot" type="Marker2D" parent="aimcircle"]
+position = Vector2(64, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="aimcircle/startchargespot"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_admt3")
