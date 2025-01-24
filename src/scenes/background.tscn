@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://8i0a5h0eoed5"]
+[gd_scene load_steps=5 format=3 uid="uid://dgsbjmxdvo46q"]
 
 [ext_resource type="Script" path="res://src/scenes/Background.cs" id="1_7hp6s"]
 [ext_resource type="Texture2D" uid="uid://ca11pkb0ew1ae" path="res://src/textures/stars.png" id="2_2lsja"]
@@ -10,6 +10,7 @@ script = ExtResource("1_7hp6s")
 
 [node name="VerticalBackground" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(16, 0)
 repeat_size = Vector2(0, 600)
 autoscroll = Vector2(0, 100)
 limit_begin = Vector2(0, 0)
