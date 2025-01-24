@@ -11,7 +11,7 @@ public partial class Globals : Node
 
     public int currentLevel = 0;
 
-    readonly List<int> LevelHeightNeededArr = new() { 0, 100, 250, 500, 750 };
+    public readonly List<int> LevelHeightNeededArr = new() { 0, 100, 250, 500, 750 };
 
     public void GlobalPrint()
     {
