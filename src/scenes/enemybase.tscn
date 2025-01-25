@@ -83,7 +83,7 @@ target_position = Vector2(0, -192)
 [node name="misc" type="Node" parent="."]
 
 [node name="hittimer" type="Timer" parent="misc"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="caaaw" type="AudioStreamPlayer2D" parent="."]

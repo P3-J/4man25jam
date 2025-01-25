@@ -11,4 +11,6 @@ public partial class SignalBus : Node
     public delegate void EnemyGetHitEventHandler();
     [Signal]
     public delegate void LevelUpSignalEventHandler(int nextLevel);
+    [Signal]
+    public delegate void BossHitEventHandler();
 }

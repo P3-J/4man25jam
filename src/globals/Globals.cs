@@ -11,7 +11,7 @@ public partial class Globals : Node
 
     public int currentLevel = 0;
 
-    public float playerClimbSpeed = 100f;
+    public float playerClimbSpeed = 3f;
 
     public Bubble player;
 
