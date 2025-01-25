@@ -11,11 +11,11 @@ public partial class Globals : Node
 
     public int currentLevel = 0;
 
-    public float playerClimbSpeed = 20f;
+    public float playerClimbSpeed = 40f;
 
     public Bubble player;
 
-    public readonly List<int> LevelHeightNeededArr = new() { 0, 100, 250, 500, 750 };
+    public readonly List<int> LevelHeightNeededArr = new() { 50, 100, 250, 500, 750 };
 
     public void GlobalPrint()
     {
@@ -42,6 +42,7 @@ public partial class Globals : Node
         if (playerHeight >= nextLevelHeightNeeded)
         {
             int nextLevel = currentLevel + 1;
+            currentLevel = nextLevel;
             sgbus.EmitSignal("LevelUpSignal", nextLevel);
         }
         // if yes then signalbus event new level

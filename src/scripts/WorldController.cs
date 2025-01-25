@@ -1,50 +1,69 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class WorldController : Node2D
 {
-	[Export]
-	PackedScene enemybase;
+    [Export]
+    PackedScene enemybase;
 
-	Globals globals;
+    Globals globals;
 
-	public override void _Ready()
-	{
-		globals = GetNode<Globals>("/root/Globals");
-	}
+    private SignalBus sgbus;
 
-	public override void _Process(double delta)
-	{
-		globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
-	}
+    readonly List<string> LevelEnemyList = new() { "eagle", "eagle", "eagle", "eagle", "eagle" };
+    readonly List<float> LevelEnemySpawnTime = new() { 3f, 2f, 1f, 1f, 1f };
 
-	public void SpawnEnemy(string enemytype)
-	{
-		GD.Randomize();
+    [Export]
+    Timer spawntimer;
 
-		Enemybase enemy = enemybase.Instantiate<Enemybase>();
+    public override void _Ready()
+    {
+        globals = GetNode<Globals>("/root/Globals");
+        sgbus = GetNode<SignalBus>("/root/Signalbus");
+        GD.Randomize();
 
-		bool spawnDirectionLeft = GD.Randi() % 2 == 1;
-		// true = right , false = left
-		float spawnHeight = GD.Randi() % 300 + 100; // first top height,  after + bottom height = bottom + top
+        spawntimer.WaitTime = LevelEnemySpawnTime[globals.currentLevel];
 
-		if (spawnDirectionLeft)
-		{
-			enemy.GlobalPosition = new Vector2(1000, -spawnHeight);
-			GetTree().CurrentScene.AddChild(enemy);
-			enemy.Fliphorizontal();
-			enemy.dir = new Vector2(-1, 0);
-		}
-		else
-		{
-			enemy.GlobalPosition = new Vector2(-1000, -spawnHeight);
-			GetTree().CurrentScene.AddChild(enemy);
-			enemy.dir = new Vector2(+1, 0);
-		}
-	}
+        sgbus.Connect("LevelUpSignal", new Callable(this, nameof(SetNewSpawnTime)));
+    }
 
-	private void _on_spawntimer_timeout()
-	{
-		SpawnEnemy("test");
-	}
+    public void SetNewSpawnTime(int nextLevel)
+    {
+        spawntimer.WaitTime = LevelEnemySpawnTime[nextLevel];
+    }
+
+    public override void _Process(double delta)
+    {
+        globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
+    }
+
+    public void SpawnEnemy(string enemytype)
+    {
+        Enemybase enemy = enemybase.Instantiate<Enemybase>();
+
+        bool spawnDirectionLeft = GD.Randi() % 2 == 1;
+        // true = right , false = left
+        float spawnHeight = GD.Randi() % 300 + 100; // first top height,  after + bottom height = bottom + top
+
+        if (spawnDirectionLeft)
+        {
+            enemy.GlobalPosition = new Vector2(1000, -spawnHeight);
+            GetTree().CurrentScene.AddChild(enemy);
+            enemy.Fliphorizontal();
+            enemy.dir = new Vector2(-1, 0);
+        }
+        else
+        {
+            enemy.GlobalPosition = new Vector2(-1000, -spawnHeight);
+            GetTree().CurrentScene.AddChild(enemy);
+            enemy.dir = new Vector2(+1, 0);
+        }
+    }
+
+    private void _on_spawntimer_timeout()
+    {
+        SpawnEnemy(LevelEnemyList[globals.currentLevel]);
+    }
+
 }
