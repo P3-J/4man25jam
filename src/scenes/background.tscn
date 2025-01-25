@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgsbjmxdvo46q"]
+[gd_scene load_steps=7 format=3 uid="uid://dgsbjmxdvo46q"]
 
 [ext_resource type="Script" path="res://src/scripts/Background.cs" id="1_7hp6s"]
 [ext_resource type="PackedScene" uid="uid://bf8osow65f2n5" path="res://src/scenes/cloud_parallax.tscn" id="2_7w26e"]
 [ext_resource type="Texture2D" uid="uid://cscksxsn74vix" path="res://src/textures/background/vertical/vertical1.png" id="2_ubufb"]
 [ext_resource type="Texture2D" uid="uid://ba3yfdiyw8ug3" path="res://src/textures/gradient.png" id="3_jflup"]
 [ext_resource type="Texture2D" uid="uid://cw18m0geh4rnf" path="res://src/textures/background/startbackground.png" id="5_2hlpe"]
+[ext_resource type="Texture2D" uid="uid://b518kbbgcbsje" path="res://src/textures/background/fogg.png" id="6_3ah5v"]
 
 [node name="Background" type="Node2D" node_paths=PackedStringArray("backgroundGradient", "startBackground", "verticalBackground", "verticalBackgroundSprite")]
 position = Vector2(-13, 0)
@@ -35,3 +36,14 @@ texture = ExtResource("3_jflup")
 z_index = 2
 position = Vector2(421, 408)
 texture = ExtResource("5_2hlpe")
+
+[node name="FogParallax" type="Parallax2D" parent="."]
+repeat_size = Vector2(1960, 0)
+autoscroll = Vector2(50, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="FogParallax"]
+modulate = Color(1, 1, 1, 0.505882)
+z_index = 1
+position = Vector2(330, 346)
+scale = Vector2(1, 1.91951)
+texture = ExtResource("6_3ah5v")
