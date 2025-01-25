@@ -8,6 +8,8 @@ public partial class Enemybase : CharacterBody2D
 	public Vector2 dir = new Vector2();
 	public bool isAggro = false;
 	public int HP = 1;
+
+	public string enemyname = "";
 	[Export] AnimatedSprite2D enemysprite;
 	[Export] Node2D raycastparent;
 	[Export] Area2D hitbox;
@@ -26,7 +28,6 @@ public partial class Enemybase : CharacterBody2D
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
 		hittimer = GetNode<Timer>("misc/hittimer");
 
-
 		sgbus.Connect("EnemyGetHit", new Callable(this, nameof(GetHit)));
 	}
 
@@ -37,7 +38,9 @@ public partial class Enemybase : CharacterBody2D
 		raycastparent.LookAt(globals.player.GlobalPosition);
 		raycastparent.Rotation += Mathf.Pi / 2;
 
-		if (raycast.IsColliding() && !isAggro){
+
+
+		if (raycast.IsColliding() && !isAggro && enemyname == "eagle"){
 			CharacterBody2D collider = (CharacterBody2D)raycast.GetCollider();
 			if (!collider.IsInGroup("player")) {return;}
 			isAggro = true;
