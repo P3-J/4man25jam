@@ -3,10 +3,8 @@
 [ext_resource type="Script" path="res://src/scripts/WorldController.cs" id="1_e2we7"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="2_ofqu2"]
 [ext_resource type="Script" path="res://src/scripts/Coin.cs" id="3_6rq48"]
-
-[ext_resource type="PackedScene" uid="uid://du3eoicf0hcow" path="res://src/scenes/bubble.tscn" id="3_gsgt4"]
-[ext_resource type="PackedScene" uid="uid://dgsbjmxdvo46q" path="res://src/scenes/background.tscn" id="4_1gu5j"]
-
+[ext_resource type="PackedScene" path="res://src/scenes/bubble.tscn" id="3_gsgt4"]
+[ext_resource type="PackedScene" uid="uid://cworp3mdlpiuv" path="res://src/scenes/background.tscn" id="4_1gu5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhayn"]
 size = Vector2(128, 128)
