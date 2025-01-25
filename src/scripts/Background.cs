@@ -17,6 +17,7 @@ public partial class Background : Node2D
     const double stepsNeeded = gameStartTransitionPixelHeight / transitionStepSize;
 
     const float transitionStepSize = 3f;
+    private bool realgamestart = false;
 
     int stepsDone = 0;
 
@@ -54,7 +55,7 @@ public partial class Background : Node2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        if (IsGameStartSequence)
+        if (IsGameStartSequence && !realgamestart)
         {
             verticalBackground.Autoscroll = new Vector2(0, 200);
             stepsDone++;
@@ -68,11 +69,9 @@ public partial class Background : Node2D
                 startBackground.QueueFree();
                 Node cloudSceneNode = cloudScene.Instantiate();
                 AddChild(cloudSceneNode);
-                IsGameStartSequence = false;
+                realgamestart = true;
             }
-        } else {
-            return;
-        }
+        } 
 
         if (GradientIsMoving)
         {
