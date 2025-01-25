@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgsbjmxdvo46q"]
+[gd_scene load_steps=24 format=3 uid="uid://dgsbjmxdvo46q"]
 
 [ext_resource type="Script" path="res://src/scripts/Background.cs" id="1_7hp6s"]
 [ext_resource type="PackedScene" path="res://src/scenes/cloud_parallax.tscn" id="2_7w26e"]
@@ -6,6 +6,298 @@
 [ext_resource type="Texture2D" uid="uid://ba3yfdiyw8ug3" path="res://src/textures/gradient.png" id="3_jflup"]
 [ext_resource type="Texture2D" uid="uid://cw18m0geh4rnf" path="res://src/textures/background/startbackground.png" id="5_2hlpe"]
 [ext_resource type="Texture2D" uid="uid://b518kbbgcbsje" path="res://src/textures/background/fogg.png" id="6_3ah5v"]
+[ext_resource type="Texture2D" uid="uid://c7btg5yfklroj" path="res://src/textures/drunkmanspritesheet.png" id="7_g42dr"]
+[ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="8_o2tf6"]
+[ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="9_qp70t"]
+[ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="10_cmeac"]
+
+[sub_resource type="Animation" id="Animation_n2q3f"]
+resource_name = "startanimation"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("chineseman:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.73333, 3.33333, 3.93333, 4.36667, 4.83333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-83, 720), Vector2(701, 704), Vector2(701, 704), Vector2(466, 699), Vector2(466, 699), Vector2(-400, 699)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("chineseman:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.73333, 3.33333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bubblesprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.73333, 3.2, 3.33333, 3.96667, 4.16667, 4.83333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(733, 672), Vector2(733, 672), Vector2(717, 640), Vector2(653, 688), Vector2(418, 683), Vector2(461, 592), Vector2(415, 410)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bubblesprite:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.73333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bubblesprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3.33333, 4.16667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.03498, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("chineseman:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3.96667),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bubblesprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(4.16667, 4.83333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.15, 0.15)]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"StartGame"
+}]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("bubblesprite:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(4.66667, 4.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_0w4uc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("chineseman:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-83, 720)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("chineseman:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bubblesprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(733, 672)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bubblesprite:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bubblesprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.03498]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("chineseman:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bubblesprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25, 0.25)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("bubblesprite:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dbc7a"]
+_data = {
+"RESET": SubResource("Animation_0w4uc"),
+"startanimation": SubResource("Animation_n2q3f")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jeux"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(0, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6gng"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(820, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dap5"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(1640, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orms3"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(2460, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oce3"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(3280, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfw2p"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(4100, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfoir"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(4920, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b34ha"]
+atlas = ExtResource("7_g42dr")
+region = Rect2(5740, 0, 820, 820)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_friss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jeux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6gng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dap5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orms3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oce3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfw2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfoir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b34ha")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 10.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xc8b"]
+shader = ExtResource("8_o2tf6")
+shader_parameter/active = false
+shader_parameter/tint = Color(0.952941, 0.0196078, 0, 1)
 
 [node name="Background" type="Node2D" node_paths=PackedStringArray("backgroundGradient", "startBackground", "verticalBackground", "verticalBackgroundSprite")]
 position = Vector2(-13, 0)
@@ -19,7 +311,6 @@ cloudScene = ExtResource("2_7w26e")
 [node name="VerticalBackground" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0, 0)
 repeat_size = Vector2(0, 1539)
-autoscroll = Vector2(0, 200)
 repeat_times = 3
 follow_viewport = false
 
@@ -34,7 +325,8 @@ texture = ExtResource("3_jflup")
 
 [node name="StartBackground" type="Sprite2D" parent="."]
 z_index = 2
-position = Vector2(421, 408)
+position = Vector2(420, 423)
+scale = Vector2(0.997561, 1.03659)
 texture = ExtResource("5_2hlpe")
 
 [node name="FogParallax" type="Parallax2D" parent="."]
@@ -47,3 +339,32 @@ z_index = 1
 position = Vector2(330, 346)
 scale = Vector2(1, 1.91951)
 texture = ExtResource("6_3ah5v")
+
+[node name="startanim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dbc7a")
+}
+autoplay = "startanimation"
+
+[node name="chineseman" type="AnimatedSprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+position = Vector2(-83, 720)
+scale = Vector2(0.207317, 0.182927)
+sprite_frames = SubResource("SpriteFrames_friss")
+animation = &"moving"
+autoplay = "moving"
+
+[node name="bubblesprite" type="Sprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_3xc8b")
+position = Vector2(733, 672)
+rotation = -1.03498
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("9_qp70t")
+
+[node name="sateliit" type="Sprite2D" parent="bubblesprite"]
+z_index = -1
+position = Vector2(-10.6667, 389.333)
+scale = Vector2(4, 4)
+texture = ExtResource("10_cmeac")

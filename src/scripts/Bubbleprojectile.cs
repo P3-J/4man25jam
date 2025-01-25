@@ -34,21 +34,34 @@ public partial class Bubbleprojectile : Area2D
 	private void _on_area_entered(Node2D body){
 
 		if (enemyowner){
-			if (body.IsInGroup("player")){
-				sgbus.EmitSignal("PlayerGetHit", 1);
-				QueueFree();
-			}
 			return;
 		}
 
 		if (body.IsInGroup("enemy") && canMove){
 			sgbus.EmitSignal("EnemyGetHit", body , damage, this);
+			return;
 		}
 
 		if (body.IsInGroup("boss") && canMove){
 			sgbus.EmitSignal("BossHit", damage);
 			QueueFree();
+			return;
+		}
+
+		if (body.IsInGroup("bubble") && canMove){
+			body.QueueFree();
+			QueueFree();
 		}
 
 	}
+
+	private void _on_body_entered(Node2D body){
+		if (!enemyowner){return;}
+
+		if (body.IsInGroup("player")){
+			sgbus.EmitSignal("PlayerGetHit", 1);
+			QueueFree();
+		}
+	}
+
 }

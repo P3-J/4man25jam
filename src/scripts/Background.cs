@@ -6,7 +6,7 @@ public partial class Background : Node2D
     Sprite2D BackgroundGradient;
     bool GradientIsMoving;
 
-    bool IsGameStartSequence;
+    public bool IsGameStartSequence;
 
     float GradientTargetY;
 
@@ -44,7 +44,11 @@ public partial class Background : Node2D
         // NEEDS TO BE CHANGED, SHOULD ONLY CALL ON FIRST LEVELUP
         sgbus.Connect("LevelUpSignal", new Callable(this, nameof(ModulateBackground)));
         // can trigger a start message with a timer here?
+    }
+
+    public void StartGame(){
         IsGameStartSequence = true;
+        sgbus.EmitSignal("StartGame");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,6 +56,7 @@ public partial class Background : Node2D
     {
         if (IsGameStartSequence)
         {
+            verticalBackground.Autoscroll = new Vector2(0, 200);
             stepsDone++;
 
             float startBackgroundNewY = startBackground.Position.Y + transitionStepSize;
@@ -65,6 +70,8 @@ public partial class Background : Node2D
                 AddChild(cloudSceneNode);
                 IsGameStartSequence = false;
             }
+        } else {
+            return;
         }
 
         if (GradientIsMoving)

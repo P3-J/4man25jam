@@ -1,20 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbgyeo2fdyp7q"]
+[gd_scene load_steps=5 format=3 uid="uid://bbgyeo2fdyp7q"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubbleprojectile.cs" id="1_6p4fy"]
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="2_opavm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vim32"]
 
-[node name="bubbleprojectile" type="Area2D"]
+[sub_resource type="Curve" id="Curve_ts4uy"]
+_data = [Vector2(0.0154639, 0.956044), 0.0, 0.0, 0, 0, Vector2(1, 0.0659339), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="bubbleprojectile" type="Area2D" groups=["bubble"]]
 modulate = Color(1, 0.247059, 0.364706, 1)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_6p4fy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+z_as_relative = false
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_opavm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vim32")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+randomness = 0.51
+emission_shape = 1
+emission_sphere_radius = 39.14
+gravity = Vector2(0, 30)
+radial_accel_min = 31.78
+radial_accel_max = 31.78
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_ts4uy")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

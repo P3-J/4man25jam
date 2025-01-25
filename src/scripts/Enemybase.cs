@@ -4,7 +4,7 @@ using System.Collections;
 
 public partial class Enemybase : CharacterBody2D
 {
-	public const float Speed = 300.0f;
+	public float Speed = 200.0f;
 	public Vector2 dir = new Vector2();
 	public bool isAggro = false;
 	public int HP = 1;
@@ -44,6 +44,7 @@ public partial class Enemybase : CharacterBody2D
 		if (raycast.IsColliding() && !isAggro && enemyname == "eagle"){
 			CharacterBody2D collider = (CharacterBody2D)raycast.GetCollider();
 			if (!collider.IsInGroup("player")) {return;}
+			Speed = 300f;
 			isAggro = true;
 			dir = (globals.player.GlobalPosition - GlobalPosition).Normalized();
 			caaaw = GetNode<AudioStreamPlayer2D>("caaaw");
