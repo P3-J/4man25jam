@@ -13,6 +13,9 @@ public partial class Bubble : CharacterBody2D
 	private Marker2D shootEndPoint;
 	private Timer shotcooldown;
 	private ProgressBar shotbar;
+	private Timer hittimer;
+
+	private int hp = 10;
 
 	public float BoundsFromCenterOfScreenX = 200f;
 	public float BoundsFromCenterOfScreenY = 250f;
@@ -23,16 +26,23 @@ public partial class Bubble : CharacterBody2D
 	private bool shotoncooldown = false;
 
 	private Globals globals;
+	private SignalBus sgbus;
 
 
     public override void _Ready()
     {
         base._Ready();
 		globals = GetNode<Globals>("/root/Globals");
+		sgbus = GetNode<SignalBus>("/root/Signalbus");
+
+
 		shootStartPoint = aimrotater.GetNode<Marker2D>("startchargespot");
 		shootEndPoint = aimrotater.GetNode<Marker2D>("aimtowards");
 		shotcooldown = GetNode<Timer>("misc/shottimer");
 		shotbar = GetNode<ProgressBar>("misc/shotbar");
+		hittimer = GetNode<Timer>("misc/hittimer");
+
+		sgbus.Connect("PlayerGetHit", new Callable(this, nameof(GetHit)));
 
 		globals.player = this;
     }
@@ -94,7 +104,7 @@ public partial class Bubble : CharacterBody2D
 			chargingBubbleGun = false;
 			shootStartPoint.RemoveChild(currentProj);
 
-			if (shotbar.Value < 60 || shotbar.Value > 76){
+			if (shotbar.Value < 50 || shotbar.Value > 76){
 				currentProj.QueueFree(); // remove it , or pop it whatever
 			}
 
@@ -116,6 +126,16 @@ public partial class Bubble : CharacterBody2D
 		crntBubble.ZIndex = -1;
 		crntBubble.GlobalPosition = shootStartPoint.GlobalPosition;
     }
+
+	private void GetHit(int amount){
+		bubblesprite.Material.Set("shader_parameter/active", true);
+		hp -= amount;
+		hittimer.Start();
+	}
+
+	private void _on_hittimer_timeout(){
+		bubblesprite.Material.Set("shader_parameter/active", false);
+	}
 
     private Vector2 PlayerInput(){
 		Vector2 Direction = new Vector2();

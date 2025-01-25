@@ -1,11 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://b2y8715mc2441"]
+[gd_scene load_steps=20 format=3 uid="uid://b2y8715mc2441"]
 
 [ext_resource type="Script" path="res://src/scripts/WorldController.cs" id="1_e2we7"]
+[ext_resource type="PackedScene" uid="uid://c1etyke707vnw" path="res://src/scenes/enemybase.tscn" id="2_m0shd"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="2_ofqu2"]
 [ext_resource type="Script" path="res://src/scripts/Coin.cs" id="3_6rq48"]
 [ext_resource type="PackedScene" uid="uid://du3eoicf0hcow" path="res://src/scenes/bubble.tscn" id="3_gsgt4"]
 [ext_resource type="AudioStream" uid="uid://d086n4uidx73x" path="res://src/muss/laul2.mp3" id="6_65prq"]
-[ext_resource type="PackedScene" uid="uid://bs3gcmojuecfu" path="res://src/scenes/ui.tscn" id="7_ersws"]
+[ext_resource type="PackedScene" path="res://src/scenes/ui.tscn" id="7_ersws"]
 [ext_resource type="Texture2D" uid="uid://c7btg5yfklroj" path="res://src/textures/drunkmanspritesheet.png" id="7_pryvd"]
 [ext_resource type="PackedScene" uid="uid://dgsbjmxdvo46q" path="res://src/scenes/background.tscn" id="8_6mk7t"]
 
@@ -78,6 +79,7 @@ animations = [{
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_e2we7")
+enemybase = ExtResource("2_m0shd")
 
 [node name="coin" type="Area2D" parent="."]
 position = Vector2(727, 324)
@@ -119,6 +121,7 @@ z_index = 2
 position = Vector2(-382, -325)
 
 [node name="Background" parent="." instance=ExtResource("8_6mk7t")]
+z_index = -5
 position = Vector2(-421, -413)
 
 [connection signal="body_entered" from="coin" to="coin" method="_on_body_entered"]

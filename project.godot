@@ -33,6 +33,7 @@ project/assembly_name="4man25jam"
 [global_group]
 
 player=""
+enemy=""
 
 [input]
 
