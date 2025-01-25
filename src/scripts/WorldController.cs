@@ -84,12 +84,14 @@ public partial class WorldController : Node2D
         {
             enemy.GlobalPosition = new Vector2(1000, spawnHeight);
             GetTree().CurrentScene.AddChild(enemy);
+			enemy.enemyname = enemytype;
             enemy.Fliphorizontal();
             enemy.dir = new Vector2(-1, 0);
         }
         else
         {
             enemy.GlobalPosition = new Vector2(-1000, spawnHeight);
+			enemy.enemyname = enemytype;
             GetTree().CurrentScene.AddChild(enemy);
             enemy.dir = new Vector2(+1, 0);
         }
