@@ -42,8 +42,8 @@ public partial class Globals : Node
         if (playerHeight >= nextLevelHeightNeeded)
         {
             GD.Print("level up");
-            currentLevel++;
-            sgbus.EmitSignal("LevelUpSignal");
+            int nextLevel = currentLevel + 1;
+            sgbus.EmitSignal("LevelUpSignal", nextLevel);
         }
         // if yes then signalbus event new level
     }
