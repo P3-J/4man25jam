@@ -22,14 +22,19 @@ public partial class Bubble : CharacterBody2D
 	private bool chargingBubbleGun = false;
 	private bool shotoncooldown = false;
 
+	private Globals globals;
+
 
     public override void _Ready()
     {
         base._Ready();
+		globals = GetNode<Globals>("/root/Globals");
 		shootStartPoint = aimrotater.GetNode<Marker2D>("startchargespot");
 		shootEndPoint = aimrotater.GetNode<Marker2D>("aimtowards");
 		shotcooldown = GetNode<Timer>("misc/shottimer");
 		shotbar = GetNode<ProgressBar>("misc/shotbar");
+
+		globals.player = this;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -95,7 +100,7 @@ public partial class Bubble : CharacterBody2D
 
 			GetTree().CurrentScene.AddChild(currentProj);
 			currentProj.GlobalPosition = shootStartPoint.GlobalPosition;
-			currentProj.dir = shootEndPoint.GlobalPosition - shootStartPoint.GlobalPosition;
+			currentProj.dir = (shootEndPoint.GlobalPosition - shootStartPoint.GlobalPosition).Normalized();
 			currentProj.canMove = true;
 		}
 
