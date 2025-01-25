@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/scripts/Startscreen.cs" id="1_cihtn"]
 
 [sub_resource type="SystemFont" id="SystemFont_rm0vs"]
+subpixel_positioning = 0
 
 [node name="startscreen" type="Node2D"]
 script = ExtResource("1_cihtn")

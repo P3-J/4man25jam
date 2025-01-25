@@ -15,7 +15,7 @@ public partial class Globals : Node
 
     public Bubble player;
 
-    public readonly List<int> LevelHeightNeededArr = new() { 50, 100, 250, 500, 750 };
+    public readonly List<int> LevelHeightNeededArr = new() { 20, 40, 60, 80, 100 };
 
     public void GlobalPrint()
     {
