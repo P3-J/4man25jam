@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://du3eoicf0hcow"]
+[gd_scene load_steps=14 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
 [ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cooj82ciuohkf" path="res://src/textures/shotbar.png" id="5_c4k31"]
 [ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="5_t7p2u"]
 [ext_resource type="AudioStream" uid="uid://c2q58jj7j8jqy" path="res://src/muss/heli/bubblePop.wav" id="8_u8q01"]
+[ext_resource type="AudioStream" uid="uid://cbg1qs7mlbdul" path="res://src/muss/heli/chargeSounds.mp3" id="9_gaut3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sknfw"]
 shader = ExtResource("3_pv3m6")
@@ -82,8 +83,15 @@ show_percentage = false
 wait_time = 0.3
 one_shot = true
 
-[node name="bubblePop" type="AudioStreamPlayer2D" parent="."]
+[node name="bubbleSound" type="Node" parent="."]
+
+[node name="bubblePop" type="AudioStreamPlayer2D" parent="bubbleSound"]
+scale = Vector2(0.75, 0.75)
 stream = ExtResource("8_u8q01")
 volume_db = 19.048
+
+[node name="chargeSounds" type="AudioStreamPlayer2D" parent="bubbleSound"]
+stream = ExtResource("9_gaut3")
+volume_db = 13.105
 
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]
