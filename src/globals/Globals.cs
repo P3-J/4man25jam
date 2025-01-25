@@ -11,9 +11,7 @@ public partial class Globals : Node
 
     public int currentLevel = 0;
 
-    public float playerClimbSpeed = 400f;
-
-    public bool isPlayerWin = false;
+    public float playerClimbSpeed = 100f;
 
     public Bubble player;
 
@@ -37,12 +35,11 @@ public partial class Globals : Node
         int maxLevel = LevelHeightNeededArr.Count - 1;
         if (currentLevel == maxLevel)
         {
-            isPlayerWin = true;
             return;
         }
 
         // check if height hit new level
-        int nextLevelHeightNeeded = LevelHeightNeededArr[currentLevel + 1];
+        int nextLevelHeightNeeded = LevelHeightNeededArr[currentLevel];
         if (playerHeight >= nextLevelHeightNeeded)
         {
             int nextLevel = currentLevel + 1;
