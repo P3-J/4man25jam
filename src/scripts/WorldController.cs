@@ -8,14 +8,14 @@ public partial class WorldController : Node2D
 	PackedScene enemybase;
 
 	[Export] PackedScene boss;
-    Globals globals;
+	Globals globals;
 	
 	public string currentlySpawning = "";
 	public bool bossSpawned;
-    private SignalBus sgbus;
+	private SignalBus sgbus;
 
-    [Export]
-    Timer spawntimer;
+	[Export]
+	Timer spawntimer;
 
 	public override void _Ready()
 	{
@@ -24,13 +24,13 @@ public partial class WorldController : Node2D
 		GD.Randomize();
 
 
-    }
+	}
 
-    public override void _Process(double delta)
-    {
-        globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
+	public override void _Process(double delta)
+	{
+		globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
 		checkStage();
-    }
+	}
 
 
 	public void checkStage(){
@@ -72,30 +72,31 @@ public partial class WorldController : Node2D
 
 	}
 
-    public void SpawnEnemy(string enemytype)
-    {
-        Enemybase enemy = enemybase.Instantiate<Enemybase>();
+	public void SpawnEnemy(string enemytype)
+	{
+		Enemybase enemy = enemybase.Instantiate<Enemybase>();
 
-        bool spawnDirectionLeft = GD.Randi() % 2 == 1;
-        // true = right , false = left
-        float spawnHeight = GD.RandRange(-300, 300); // first top height,  after + bottom height = bottom + top
+		bool spawnDirectionLeft = GD.Randi() % 2 == 1;
+		// true = right , false = left
+		float spawnHeight = GD.RandRange(-300, 300); // first top height,  after + bottom height = bottom + top
 
-        if (spawnDirectionLeft)
-        {
-            enemy.GlobalPosition = new Vector2(1000, spawnHeight);
-            GetTree().CurrentScene.AddChild(enemy);
+		if (spawnDirectionLeft)
+		{
+			enemy.GlobalPosition = new Vector2(1000, spawnHeight);
+			GetTree().CurrentScene.AddChild(enemy);
 			enemy.enemyname = enemytype;
-            enemy.Fliphorizontal();
-            enemy.dir = new Vector2(-1, 0);
-        }
-        else
-        {
-            enemy.GlobalPosition = new Vector2(-1000, spawnHeight);
+			enemy.Fliphorizontal();
+			enemy.dir = new Vector2(-1, 0);
+		}
+		else
+		{
+			enemy.GlobalPosition = new Vector2(-1000, spawnHeight);
 			enemy.enemyname = enemytype;
-            GetTree().CurrentScene.AddChild(enemy);
-            enemy.dir = new Vector2(+1, 0);
-        }
-    }
+			GetTree().CurrentScene.AddChild(enemy);
+			enemy.dir = new Vector2(+1, 0);
+		}
+	}
+
 
 
 
