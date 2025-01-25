@@ -17,6 +17,9 @@ public partial class Enemybase : CharacterBody2D
 	private Timer hittimer;
 	private Globals globals;
 	private SignalBus sgbus;
+	private AudioStreamPlayer2D caaaw;
+
+
 
 	public override void _Ready()
 	{
@@ -25,6 +28,7 @@ public partial class Enemybase : CharacterBody2D
 		raycast = raycastparent.GetNode<RayCast2D>("RayCast2D");
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
 		hittimer = GetNode<Timer>("misc/hittimer");
+
 		sgbus.Connect("EnemyGetHit", new Callable(this, nameof(GetHit)));
 	}
 
@@ -42,6 +46,9 @@ public partial class Enemybase : CharacterBody2D
 			if (!collider.IsInGroup("player")) {return;}
 			isAggro = true;
 			dir = (globals.player.GlobalPosition - GlobalPosition).Normalized();
+			caaaw = GetNode<AudioStreamPlayer2D>("caaaw");
+			caaaw.Play();
+
 		}
 
 		CheckIfOutOfBounds();
