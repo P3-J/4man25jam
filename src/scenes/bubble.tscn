@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
-[ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
+[ext_resource type="PackedScene" uid="uid://bxoday7sk4xic" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="3_admt3"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_pv3m6"]
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="4_fhttg"]
@@ -57,7 +57,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_admt3")
 
 [node name="startchargespot" type="Marker2D" parent="aimcircle"]
-position = Vector2(64, 0)
+position = Vector2(106.667, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="aimcircle/startchargespot"]
 visible = false
@@ -66,8 +66,6 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_admt3")
 
 [node name="misc" type="Node2D" parent="."]
-
-[node name="shottimer" type="Timer" parent="misc"]
 
 [node name="shotbar" type="ProgressBar" parent="misc"]
 visible = false
@@ -88,5 +86,4 @@ one_shot = true
 stream = ExtResource("8_u8q01")
 volume_db = 19.048
 
-[connection signal="timeout" from="misc/shottimer" to="." method="_on_shottimer_timeout"]
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]

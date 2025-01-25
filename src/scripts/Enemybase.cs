@@ -7,7 +7,7 @@ public partial class Enemybase : CharacterBody2D
 	public const float Speed = 300.0f;
 	public Vector2 dir = new Vector2();
 	public bool isAggro = false;
-	public int HP = 2;
+	public int HP = 1;
 	[Export] AnimatedSprite2D enemysprite;
 	[Export] Node2D raycastparent;
 	[Export] Area2D hitbox;
@@ -59,7 +59,7 @@ public partial class Enemybase : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	private void GetHit(Node2D body, int amount){
+	private void GetHit(Node2D body, int amount, Area2D bubbleproj){
 		
 		if ((Area2D)body != hitbox){
 			return;
@@ -70,7 +70,7 @@ public partial class Enemybase : CharacterBody2D
 		CheckHp();
 
 		hittimer.Start();
-		body.QueueFree();
+		bubbleproj.QueueFree();
 	}
 
 	public void CheckHp(){

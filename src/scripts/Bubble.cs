@@ -11,7 +11,6 @@ public partial class Bubble : CharacterBody2D
 	[Export] PackedScene bubbleproj;
 	private Marker2D shootStartPoint;
 	private Marker2D shootEndPoint;
-	private Timer shotcooldown;
 	private ProgressBar shotbar;
 	private Timer hittimer;
 
@@ -23,7 +22,7 @@ public partial class Bubble : CharacterBody2D
 	private bool swaying = false;
 	private string swayingDir = "";
 	private bool chargingBubbleGun = false;
-	private bool shotoncooldown = false;
+	private Vector2 mouseDirection = new Vector2();
 
 	private Globals globals;
 	private SignalBus sgbus;
@@ -43,7 +42,6 @@ public partial class Bubble : CharacterBody2D
 
 		shootStartPoint = aimrotater.GetNode<Marker2D>("startchargespot");
 		shootEndPoint = aimrotater.GetNode<Marker2D>("aimtowards");
-		shotcooldown = GetNode<Timer>("misc/shottimer");
 		shotbar = GetNode<ProgressBar>("misc/shotbar");
 		hittimer = GetNode<Timer>("misc/hittimer");
 
@@ -57,6 +55,12 @@ public partial class Bubble : CharacterBody2D
 		Vector2 velocity = Velocity;
 
 		Vector2 direction = PlayerInput(); 
+
+		mouseDirection = GetGlobalMousePosition();
+		Vector2 mousedir = (mouseDirection - GlobalPosition).Normalized();
+		aimrotater.Rotation = mousedir.Angle();
+
+
 
 		Sway();
 		ChargeBar();
@@ -101,8 +105,6 @@ public partial class Bubble : CharacterBody2D
 			shotbar.Value = 0;
 			shotbar.Visible = true;
 			chargingBubbleGun = true;
-			shotoncooldown = true;
-			shotcooldown.Start();
 			CreateBubble();
 		} else {
 			shotbar.Visible = false;
@@ -131,7 +133,7 @@ public partial class Bubble : CharacterBody2D
 		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
 		currentProj = crntBubble;
 		shootStartPoint.AddChild(crntBubble);
-		crntBubble.ZIndex = -1;
+		crntBubble.ZIndex = 1;
 		crntBubble.GlobalPosition = shootStartPoint.GlobalPosition;
 	}
 
@@ -169,16 +171,7 @@ public partial class Bubble : CharacterBody2D
 			swaying = true;
 		}
 
-
-		if (Input.IsActionPressed("aimup")){
-			aimrotater.Rotation += 0.05f;
-		}
-
-		if (Input.IsActionPressed("aimdown")){
-			aimrotater.Rotation -= 0.05f;
-		}
-
-		if (Input.IsActionJustPressed("charge") && !chargingBubbleGun && !shotoncooldown){
+		if (Input.IsActionJustPressed("charge") && !chargingBubbleGun){
 			ShootOrChargeBubble(true);
 		}
 		if (Input.IsActionJustReleased("charge") && chargingBubbleGun){
@@ -188,13 +181,6 @@ public partial class Bubble : CharacterBody2D
 		return Direction.Normalized();
 
 	}
-
-	private void _on_shottimer_timeout(){
-
-		shotoncooldown = false;
-
-	}
-
 
 	private bool CheckIfInBounds(string dir, bool negative){ 
 		float bfcosX = BoundsFromCenterOfScreenX;
