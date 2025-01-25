@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://du3eoicf0hcow"]
+[gd_scene load_steps=13 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
 [ext_resource type="PackedScene" uid="uid://bxoday7sk4xic" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="4_fhttg"]
 [ext_resource type="Texture2D" uid="uid://cooj82ciuohkf" path="res://src/textures/shotbar.png" id="5_c4k31"]
 [ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="5_t7p2u"]
+[ext_resource type="AudioStream" uid="uid://c2q58jj7j8jqy" path="res://src/muss/heli/bubblePop.wav" id="8_u8q01"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sknfw"]
 shader = ExtResource("3_pv3m6")
@@ -56,7 +57,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_admt3")
 
 [node name="startchargespot" type="Marker2D" parent="aimcircle"]
-position = Vector2(64, 0)
+position = Vector2(106.667, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="aimcircle/startchargespot"]
 visible = false
@@ -65,8 +66,6 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_admt3")
 
 [node name="misc" type="Node2D" parent="."]
-
-[node name="shottimer" type="Timer" parent="misc"]
 
 [node name="shotbar" type="ProgressBar" parent="misc"]
 visible = false
@@ -83,5 +82,8 @@ show_percentage = false
 wait_time = 0.5
 one_shot = true
 
-[connection signal="timeout" from="misc/shottimer" to="." method="_on_shottimer_timeout"]
+[node name="bubblePop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_u8q01")
+volume_db = 19.048
+
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]
