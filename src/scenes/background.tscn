@@ -6,18 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://chbgvfc7rqhaw" path="res://src/textures/clouds.png" id="3_r678t"]
 [ext_resource type="Texture2D" uid="uid://cw18m0geh4rnf" path="res://src/textures/background/startbackground.png" id="5_2hlpe"]
 
-[node name="Background" type="Node2D" node_paths=PackedStringArray("backgroundGradient", "startBackground", "verticalBackground")]
+[node name="Background" type="Node2D" node_paths=PackedStringArray("backgroundGradient", "startBackground", "verticalBackground", "verticalBackgroundSprite")]
 position = Vector2(-13, 0)
 script = ExtResource("1_7hp6s")
 backgroundGradient = NodePath("BackgroundGradient")
 startBackground = NodePath("StartBackground")
 verticalBackground = NodePath("VerticalBackground")
+verticalBackgroundSprite = NodePath("VerticalBackground/Sprite2D")
 
 [node name="VerticalBackground" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0, 0)
 repeat_size = Vector2(0, 1539)
 autoscroll = Vector2(0, 200)
 repeat_times = 3
+follow_viewport = false
 
 [node name="Sprite2D" type="Sprite2D" parent="VerticalBackground"]
 z_index = 1

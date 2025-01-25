@@ -19,7 +19,7 @@ public partial class Ui : Node2D
     public override void _Process(double delta)
     {
         Globals globals = GetNode<Globals>("/root/Globals");
-        startHeight.Text = $"{globals.playerHeight}m";
+        startHeight.Text = $"{Math.Floor(globals.playerHeight)}m";
 
         int nextLevelHeightNeeded = globals.LevelHeightNeededArr[globals.currentLevel + 1];
         int currentLevelHeight = globals.LevelHeightNeededArr[globals.currentLevel];

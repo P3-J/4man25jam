@@ -7,9 +7,11 @@ public partial class Globals : Node
     private SignalBus sgbus;
     public int exampleGlobal = 0;
 
-    public int playerHeight = 0;
+    public float playerHeight = 0;
 
     public int currentLevel = 0;
+
+    public float playerClimbSpeed = 20f;
 
     public Bubble player;
 
@@ -25,7 +27,7 @@ public partial class Globals : Node
         sgbus = GetNode<SignalBus>("/root/Signalbus");
     }
 
-    public void AddPlayerHeight(int height)
+    public void AddPlayerHeight(float height)
     {
         playerHeight += height;
 
@@ -39,6 +41,7 @@ public partial class Globals : Node
         int nextLevelHeightNeeded = LevelHeightNeededArr[currentLevel + 1];
         if (playerHeight >= nextLevelHeightNeeded)
         {
+            GD.Print("level up");
             currentLevel++;
             sgbus.EmitSignal("LevelUpSignal");
         }
