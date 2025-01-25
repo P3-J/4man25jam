@@ -7,7 +7,7 @@ public partial class Enemybase : CharacterBody2D
 	public const float Speed = 300.0f;
 	public Vector2 dir = new Vector2();
 	public bool isAggro = false;
-	public int HP = 2;
+	public int HP = 1;
 	[Export] AnimatedSprite2D enemysprite;
 	[Export] Node2D raycastparent;
 	[Export] Area2D hitbox;
