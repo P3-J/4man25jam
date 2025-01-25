@@ -11,6 +11,8 @@ public partial class Bubble : CharacterBody2D
 	[Export] PackedScene bubbleproj;
 	private Marker2D shootStartPoint;
 	private Marker2D shootEndPoint;
+	private Timer shotcooldown;
+	private ProgressBar shotbar;
 
 	public float BoundsFromCenterOfScreenX = 200f;
 	public float BoundsFromCenterOfScreenY = 250f;
@@ -18,6 +20,7 @@ public partial class Bubble : CharacterBody2D
 	private bool swaying = false;
 	private string swayingDir = "";
 	private bool chargingBubbleGun = false;
+	private bool shotoncooldown = false;
 
 
     public override void _Ready()
@@ -25,6 +28,8 @@ public partial class Bubble : CharacterBody2D
         base._Ready();
 		shootStartPoint = aimrotater.GetNode<Marker2D>("startchargespot");
 		shootEndPoint = aimrotater.GetNode<Marker2D>("aimtowards");
+		shotcooldown = GetNode<Timer>("misc/shottimer");
+		shotbar = GetNode<ProgressBar>("misc/shotbar");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -34,6 +39,7 @@ public partial class Bubble : CharacterBody2D
         Vector2 direction = PlayerInput(); 
 
 		Sway();
+		ChargeBar();
 
         if (direction != Vector2.Zero)
         {
@@ -49,6 +55,12 @@ public partial class Bubble : CharacterBody2D
         Velocity = velocity;
         MoveAndSlide();
     }
+
+	private void ChargeBar(){
+		if (chargingBubbleGun){
+			shotbar.Value += 1;
+		} 
+	}
 
 
 	private void Sway(){
@@ -66,11 +78,21 @@ public partial class Bubble : CharacterBody2D
 	private void ShootOrChargeBubble(bool bubbleState){
 
 		if (bubbleState){
+			shotbar.Value = 0;
+			shotbar.Visible = true;
 			chargingBubbleGun = true;
+			shotoncooldown = true;
+			shotcooldown.Start();
 			CreateBubble();
 		} else {
+			shotbar.Visible = false;
 			chargingBubbleGun = false;
 			shootStartPoint.RemoveChild(currentProj);
+
+			if (shotbar.Value < 60 || shotbar.Value > 76){
+				currentProj.QueueFree(); // remove it , or pop it whatever
+			}
+
 			GetTree().CurrentScene.AddChild(currentProj);
 			currentProj.GlobalPosition = shootStartPoint.GlobalPosition;
 			currentProj.dir = shootEndPoint.GlobalPosition - shootStartPoint.GlobalPosition;
@@ -78,6 +100,7 @@ public partial class Bubble : CharacterBody2D
 		}
 
 	}
+	
 
     private void CreateBubble()
     {
@@ -122,7 +145,7 @@ public partial class Bubble : CharacterBody2D
 			aimrotater.Rotation -= 0.05f;
 		}
 
-		if (Input.IsActionJustPressed("charge") && !chargingBubbleGun){
+		if (Input.IsActionJustPressed("charge") && !chargingBubbleGun && !shotoncooldown){
 			ShootOrChargeBubble(true);
 		}
 		if (Input.IsActionJustReleased("charge") && chargingBubbleGun){
@@ -130,6 +153,12 @@ public partial class Bubble : CharacterBody2D
 		}
 
 		return Direction.Normalized();
+
+	}
+
+	private void _on_shottimer_timeout(){
+
+		shotoncooldown = false;
 
 	}
 

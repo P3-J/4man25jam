@@ -1,12 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7guag1pgq3xy"]
+[gd_scene load_steps=2 format=3 uid="uid://c7guag1pgq3xy"]
 
 [ext_resource type="Script" path="res://src/globals/Globals.cs" id="1_p3x3i"]
-[ext_resource type="AudioStream" uid="uid://d086n4uidx73x" path="res://src/muss/laul2.mp3" id="2_p77bo"]
 
 [node name="globals" type="Node"]
 script = ExtResource("1_p3x3i")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_p77bo")
-autoplay = true
-parameters/looping = false
