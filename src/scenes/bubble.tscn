@@ -79,7 +79,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_cu1yy")
 show_percentage = false
 
 [node name="hittimer" type="Timer" parent="misc"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="bubblePop" type="AudioStreamPlayer2D" parent="."]

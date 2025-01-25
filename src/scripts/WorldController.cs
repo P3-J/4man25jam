@@ -63,7 +63,7 @@ public partial class WorldController : Node2D
 
     private void _on_spawntimer_timeout()
     {
-        SpawnEnemy(LevelEnemyList[globals.currentLevel]);
+        //SpawnEnemy(LevelEnemyList[globals.currentLevel]);
     }
 
 }

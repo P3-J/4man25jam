@@ -7,6 +7,8 @@ public partial class Bubbleprojectile : Area2D
 	public float speed = 300;
 	public int damage = 1;
 	public bool canMove = false;
+
+	public bool enemyowner = false;
 	
 	private SignalBus sgbus;
 
@@ -31,8 +33,21 @@ public partial class Bubbleprojectile : Area2D
 
 	private void _on_area_entered(Node2D body){
 
+		if (enemyowner){
+			if (body.IsInGroup("player")){
+				sgbus.EmitSignal("PlayerGetHit", 1);
+				QueueFree();
+			}
+			return;
+		}
+
 		if (body.IsInGroup("enemy") && canMove){
 			sgbus.EmitSignal("EnemyGetHit", body , damage, this);
+		}
+
+		if (body.IsInGroup("boss") && canMove){
+			sgbus.EmitSignal("BossHit", damage);
+			QueueFree();
 		}
 
 	}
