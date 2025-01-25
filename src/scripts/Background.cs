@@ -91,8 +91,11 @@ public partial class Background : Node2D
         GradientIsMoving = true;
     }
 
-    public void ModulateBackground()
+    public void ModulateBackground(int nextLevel)
     {
-        IsBackgroundTransparentTransition = true;
+        if (nextLevel == 1)
+        {
+            IsBackgroundTransparentTransition = true;
+        }
     }
 }
