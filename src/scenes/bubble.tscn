@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://du3eoicf0hcow"]
+[gd_scene load_steps=13 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
-[ext_resource type="PackedScene" uid="uid://bxoday7sk4xic" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
+[ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="3_admt3"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_pv3m6"]
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="4_fhttg"]
 [ext_resource type="Texture2D" uid="uid://cooj82ciuohkf" path="res://src/textures/shotbar.png" id="5_c4k31"]
 [ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="5_t7p2u"]
+[ext_resource type="AudioStream" uid="uid://c2q58jj7j8jqy" path="res://src/muss/heli/bubblePop.wav" id="8_u8q01"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sknfw"]
 shader = ExtResource("3_pv3m6")
@@ -82,6 +83,10 @@ show_percentage = false
 [node name="hittimer" type="Timer" parent="misc"]
 wait_time = 0.5
 one_shot = true
+
+[node name="bubblePop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_u8q01")
+volume_db = 19.048
 
 [connection signal="timeout" from="misc/shottimer" to="." method="_on_shottimer_timeout"]
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]
