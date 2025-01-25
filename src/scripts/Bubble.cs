@@ -28,6 +28,7 @@ public partial class Bubble : CharacterBody2D
 	private SignalBus sgbus;
 	
 	private AudioStreamPlayer2D bubblePop;
+	private AudioStreamPlayer2D chargeSounds;
 
 	
 
@@ -37,7 +38,10 @@ public partial class Bubble : CharacterBody2D
 		base._Ready();
 		globals = GetNode<Globals>("/root/Globals");
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
-		bubblePop = GetNode<AudioStreamPlayer2D>("bubblePop");
+		chargeSounds = GetNode<AudioStreamPlayer2D>("bubbleSound/chargeSounds");
+		bubblePop = GetNode<AudioStreamPlayer2D>("bubbleSound/bubblePop");
+
+
 
 
 		shootStartPoint = aimrotater.GetNode<Marker2D>("startchargespot");
@@ -82,7 +86,8 @@ public partial class Bubble : CharacterBody2D
 	private void ChargeBar(){
 		if (chargingBubbleGun){
 			shotbar.Value += 1.5;
-		} 
+		}
+		
 	}
 
 
@@ -101,10 +106,12 @@ public partial class Bubble : CharacterBody2D
 	private void ShootOrChargeBubble(bool bubbleState){
 
 		if (bubbleState){
+			
 			shotbar.Value = 0;
 			shotbar.Visible = true;
 			chargingBubbleGun = true;
 			CreateBubble();
+			
 		} else {
 			shotbar.Visible = false;
 			chargingBubbleGun = false;
@@ -112,6 +119,8 @@ public partial class Bubble : CharacterBody2D
 
 			if (shotbar.Value < 50 || shotbar.Value > 76){
 				currentProj.QueueFree(); // Greks pop
+				chargeSounds.Stop();
+				bubblePop.PitchScale = (float)(new Random().NextDouble() * 0.4 + 0.8);
 				bubblePop.Play();
 			}
 
@@ -132,6 +141,7 @@ public partial class Bubble : CharacterBody2D
 		shootStartPoint.AddChild(crntBubble);
 		crntBubble.ZIndex = 1;
 		crntBubble.GlobalPosition = shootStartPoint.GlobalPosition;
+		chargeSounds.Play();
 	}
 
 	private void GetHit(int amount){
@@ -169,7 +179,9 @@ public partial class Bubble : CharacterBody2D
 		}
 
 		if (Input.IsActionJustPressed("charge") && !chargingBubbleGun){
+			
 			ShootOrChargeBubble(true);
+			
 		}
 		if (Input.IsActionJustReleased("charge") && chargingBubbleGun){
 			ShootOrChargeBubble(false);
