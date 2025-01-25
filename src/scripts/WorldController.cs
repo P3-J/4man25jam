@@ -6,10 +6,13 @@ public partial class WorldController : Node2D
 {
 	[Export]
 	PackedScene enemybase;
-
     [Export]
     PackedScene boss;
+	[Export]
+	Background bg;
+
     Globals globals;
+	
 
     public string currentlySpawning = "";
     public bool bossSpawned;
@@ -23,14 +26,22 @@ public partial class WorldController : Node2D
     {
         globals = GetNode<Globals>("/root/Globals");
         sgbus = GetNode<SignalBus>("/root/Signalbus");
+		sgbus.Connect("StartGame", new Callable(this, nameof(StartGame)));
         GD.Randomize();
     }
 
     public override void _Process(double delta)
     {
-        globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
-        checkStage();
+        if (bg.IsGameStartSequence){
+			globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
+		}
+		checkStage();
     }
+
+		
+	public void StartGame(){
+		globals.player.Visible = true;
+	}
 
 
     public void checkStage()

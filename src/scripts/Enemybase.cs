@@ -62,6 +62,8 @@ public partial class Enemybase : CharacterBody2D
             raycastparent.Rotation += Mathf.Pi / 2;
             if (raycast.IsColliding() && !isAggro)
             {
+                AudioStreamPlayer2D caaaw = GetNode<AudioStreamPlayer2D>("caaaw");
+			    caaaw.Play();
                 CharacterBody2D collider = (CharacterBody2D)raycast.GetCollider();
                 if (!collider.IsInGroup("player"))
                 {

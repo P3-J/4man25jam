@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b2y8715mc2441"]
+[gd_scene load_steps=11 format=3 uid="uid://b2y8715mc2441"]
 
 [ext_resource type="Script" path="res://src/scripts/WorldController.cs" id="1_e2we7"]
 [ext_resource type="PackedScene" uid="uid://c1etyke707vnw" path="res://src/scenes/enemybase.tscn" id="2_m0shd"]
@@ -7,81 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://1d3ihxw47ja4" path="res://src/scenes/boss.tscn" id="3_asnf3"]
 [ext_resource type="PackedScene" uid="uid://du3eoicf0hcow" path="res://src/scenes/bubble.tscn" id="3_gsgt4"]
 [ext_resource type="AudioStream" uid="uid://d086n4uidx73x" path="res://src/muss/laul2.mp3" id="6_65prq"]
-[ext_resource type="PackedScene" uid="uid://bs3gcmojuecfu" path="res://src/scenes/ui.tscn" id="7_ersws"]
-[ext_resource type="Texture2D" uid="uid://c7btg5yfklroj" path="res://src/textures/drunkmanspritesheet.png" id="7_pryvd"]
+[ext_resource type="PackedScene" uid="uid://c6yy6hy5patmd" path="res://src/scenes/ui.tscn" id="7_ersws"]
 [ext_resource type="PackedScene" uid="uid://dgsbjmxdvo46q" path="res://src/scenes/background.tscn" id="8_6mk7t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhayn"]
 size = Vector2(128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3jeux"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(0, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v6gng"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(820, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dap5"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(1640, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_orms3"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(2460, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5oce3"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(3280, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kfw2p"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(4100, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dfoir"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(4920, 0, 820, 820)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b34ha"]
-atlas = ExtResource("7_pryvd")
-region = Rect2(5740, 0, 820, 820)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_hxpa1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3jeux")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v6gng")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1dap5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_orms3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5oce3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kfw2p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dfoir")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b34ha")
-}],
-"loop": true,
-"name": &"moving",
-"speed": 10.0
-}]
-
-[node name="world" type="Node2D" node_paths=PackedStringArray("spawntimer")]
+[node name="world" type="Node2D" node_paths=PackedStringArray("bg", "spawntimer")]
 script = ExtResource("1_e2we7")
 enemybase = ExtResource("2_m0shd")
 boss = ExtResource("3_asnf3")
+bg = NodePath("Background")
 spawntimer = NodePath("misc/spawntimer")
 
 [node name="coin" type="Area2D" parent="."]
@@ -97,6 +33,7 @@ position = Vector2(2, -2)
 shape = SubResource("RectangleShape2D_mhayn")
 
 [node name="Bubble" parent="." instance=ExtResource("3_gsgt4")]
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -106,15 +43,6 @@ autoplay = true
 parameters/looping = false
 
 [node name="misc" type="Node" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="misc"]
-texture_filter = 1
-position = Vector2(-64, 324)
-scale = Vector2(0.207317, 0.182927)
-sprite_frames = SubResource("SpriteFrames_hxpa1")
-animation = &"moving"
-autoplay = "moving"
-frame_progress = 0.334018
 
 [node name="spawntimer" type="Timer" parent="misc"]
 one_shot = true
