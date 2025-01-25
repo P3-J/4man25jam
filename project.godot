@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="4man25jam"
-run/main_scene="res://src/scenes/world.tscn"
+run/main_scene="res://src/scenes/startscreen.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -34,6 +34,7 @@ project/assembly_name="4man25jam"
 
 player=""
 enemy=""
+boss=""
 
 [input]
 

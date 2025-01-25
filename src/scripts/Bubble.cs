@@ -61,7 +61,6 @@ public partial class Bubble : CharacterBody2D
 		aimrotater.Rotation = mousedir.Angle();
 
 
-
 		Sway();
 		ChargeBar();
 
@@ -75,14 +74,14 @@ public partial class Bubble : CharacterBody2D
 			velocity.X = Mathf.MoveToward(velocity.X, 0, Deceleration * (float)delta);
 			velocity.Y = Mathf.MoveToward(velocity.Y, 0, Deceleration * (float)delta);
 		}
-
+		
 		Velocity = velocity;
 		MoveAndSlide();
 	}
 
 	private void ChargeBar(){
 		if (chargingBubbleGun){
-			shotbar.Value += 1;
+			shotbar.Value += 1.5;
 		} 
 	}
 
@@ -114,8 +113,6 @@ public partial class Bubble : CharacterBody2D
 			if (shotbar.Value < 50 || shotbar.Value > 76){
 				currentProj.QueueFree(); // Greks pop
 				bubblePop.Play();
-
-				
 			}
 
 			GetTree().CurrentScene.AddChild(currentProj);
@@ -187,15 +184,13 @@ public partial class Bubble : CharacterBody2D
 		float bfcosY = BoundsFromCenterOfScreenY;
 
 		if (dir == "vertical"){
-			
 			if (negative){
 				return GlobalPosition.Y > -bfcosY;
 			}
 			return GlobalPosition.Y < bfcosY;
 		}
 
-		if (dir == "horizontal"){
-			
+		if (dir == "horizontal"){			
 			if (negative){
 				return GlobalPosition.X > -bfcosX;
 			}
