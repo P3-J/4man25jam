@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://clth13kjrjrgx"]
+
+[ext_resource type="Texture2D" uid="uid://dd0shqr83ljtv" path="res://src/textures/baldeaglespritesheet.png" id="1_gx6qd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf0pr"]
+atlas = ExtResource("1_gx6qd")
+region = Rect2(0, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r35c0"]
+atlas = ExtResource("1_gx6qd")
+region = Rect2(820, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mkxx"]
+atlas = ExtResource("1_gx6qd")
+region = Rect2(1640, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2j8p"]
+atlas = ExtResource("1_gx6qd")
+region = Rect2(2460, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_636id"]
+atlas = ExtResource("1_gx6qd")
+region = Rect2(3280, 0, 820, 820)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf0pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r35c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mkxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2j8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_636id")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]

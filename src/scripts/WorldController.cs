@@ -7,11 +7,12 @@ public partial class WorldController : Node2D
     [Export]
     PackedScene enemybase;
 
-	[Export] PackedScene boss;
+    [Export]
+    PackedScene boss;
     Globals globals;
-	
-	public string currentlySpawning = "";
-	public bool bossSpawned;
+
+    public string currentlySpawning = "";
+    public bool bossSpawned;
     private SignalBus sgbus;
 
     [Export]
@@ -22,55 +23,57 @@ public partial class WorldController : Node2D
         globals = GetNode<Globals>("/root/Globals");
         sgbus = GetNode<SignalBus>("/root/Signalbus");
         GD.Randomize();
-
-
     }
 
     public override void _Process(double delta)
     {
         globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
-		checkStage();
+        checkStage();
     }
 
+    public void checkStage()
+    {
+        if (globals.currentLevel == 1)
+        {
+            spawntimer.WaitTime = 0.3f;
+            if (spawntimer.IsStopped())
+            {
+                spawntimer.Start();
+            }
+            currentlySpawning = "fentplane";
+            return;
+        }
 
-	public void checkStage(){
+        if (globals.currentLevel == 2)
+        {
+            spawntimer.WaitTime = 2f;
+            if (spawntimer.IsStopped())
+            {
+                spawntimer.Start();
+            }
+            currentlySpawning = "fentplane";
+            return;
+        }
 
+        if (globals.currentLevel == 3)
+        {
+            spawntimer.WaitTime = 1f;
+            if (spawntimer.IsStopped())
+            {
+                spawntimer.Start();
+            }
+            currentlySpawning = "fentplane";
+            return;
+        }
 
-		if (globals.currentLevel == 1){
-			spawntimer.WaitTime = 3f;
-			if (spawntimer.IsStopped()){
-				spawntimer.Start();
-			}
-			currentlySpawning = "eagle";
-			return;
-		}
-
-		if (globals.currentLevel == 2){
-			spawntimer.WaitTime = 2f;
-			if (spawntimer.IsStopped()){
-				spawntimer.Start();
-			}
-			currentlySpawning = "eagle";
-			return;
-		}
-
-		if (globals.currentLevel == 3){
-			spawntimer.WaitTime = 1f;
-			if (spawntimer.IsStopped()){
-				spawntimer.Start();
-			}
-			currentlySpawning = "eagle";
-			return;
-		}
-
-		if (globals.currentLevel == 4 && !bossSpawned){
-			bossSpawned = true;
-			Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
-			GetTree().CurrentScene.AddChild(bosss);
-			return;
-		}
-
-	}
+        if (globals.currentLevel == 4 && !bossSpawned)
+        {
+            bossSpawned = true;
+            Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
+            GetTree().CurrentScene.AddChild(bosss);
+            return;
+        }
+    }
 
     public void SpawnEnemy(string enemytype)
     {
@@ -83,22 +86,19 @@ public partial class WorldController : Node2D
         if (spawnDirectionLeft)
         {
             enemy.GlobalPosition = new Vector2(1000, spawnHeight);
+            enemy.enemyname = enemytype;
             GetTree().CurrentScene.AddChild(enemy);
-			enemy.enemyname = enemytype;
             enemy.Fliphorizontal();
             enemy.dir = new Vector2(-1, 0);
         }
         else
         {
             enemy.GlobalPosition = new Vector2(-1000, spawnHeight);
-			enemy.enemyname = enemytype;
+            enemy.enemyname = enemytype;
             GetTree().CurrentScene.AddChild(enemy);
             enemy.dir = new Vector2(+1, 0);
         }
     }
-
-
-
 
     private void _on_spawntimer_timeout()
     {

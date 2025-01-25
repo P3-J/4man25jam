@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://voeflkc4l7he"]
+[gd_scene load_steps=3 format=3 uid="uid://c52by7iugndd6"]
 
 [ext_resource type="Script" path="res://src/scripts/Startscreen.cs" id="1_cihtn"]
 [ext_resource type="Texture2D" uid="uid://lcyoq4jmu7nh" path="res://src/textures/pics/coverog.jpg" id="2_q6epg"]
