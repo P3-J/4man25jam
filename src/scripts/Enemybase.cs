@@ -20,7 +20,6 @@ public partial class Enemybase : CharacterBody2D
 	private AudioStreamPlayer2D caaaw;
 
 
-
 	public override void _Ready()
 	{
 		base._Ready();
