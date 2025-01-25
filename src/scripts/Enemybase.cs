@@ -17,18 +17,21 @@ public partial class Enemybase : CharacterBody2D
 	private Timer hittimer;
 	private Globals globals;
 	private SignalBus sgbus;
+	private AudioStreamPlayer2D caaaw;
 
-    public override void _Ready()
-    {
-        base._Ready();
+
+	public override void _Ready()
+	{
+		base._Ready();
 		globals = GetNode<Globals>("/root/Globals");
 		raycast = raycastparent.GetNode<RayCast2D>("RayCast2D");
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
 		hittimer = GetNode<Timer>("misc/hittimer");
-		sgbus.Connect("EnemyGetHit", new Callable(this, nameof(GetHit)));
-    }
 
-    public override void _PhysicsProcess(double delta)
+		sgbus.Connect("EnemyGetHit", new Callable(this, nameof(GetHit)));
+	}
+
+	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
 
@@ -42,6 +45,9 @@ public partial class Enemybase : CharacterBody2D
 			if (!collider.IsInGroup("player")) {return;}
 			isAggro = true;
 			dir = (globals.player.GlobalPosition - GlobalPosition).Normalized();
+			caaaw = GetNode<AudioStreamPlayer2D>("caaaw");
+			caaaw.Play();
+
 		}
 
 		CheckIfOutOfBounds();
@@ -86,14 +92,14 @@ public partial class Enemybase : CharacterBody2D
 		enemysprite.Material.Set("shader_parameter/active", false);
 	}
 
-    private void CheckIfOutOfBounds()
-    {
-        if (GlobalPosition.X > 2000 || GlobalPosition.X < -2000 || GlobalPosition.Y > 2000 || GlobalPosition.Y < -2000){
+	private void CheckIfOutOfBounds()
+	{
+		if (GlobalPosition.X > 2000 || GlobalPosition.X < -2000 || GlobalPosition.Y > 2000 || GlobalPosition.Y < -2000){
 			QueueFree();
 		}
-    }
+	}
 
-    private void _on_area_2d_body_entered(Node2D body){
+	private void _on_area_2d_body_entered(Node2D body){
 
 		if (body.IsInGroup("player")){
 			sgbus.EmitSignal("PlayerGetHit" , 1);

@@ -4,8 +4,8 @@ using Godot;
 
 public partial class WorldController : Node2D
 {
-    [Export]
-    PackedScene enemybase;
+	[Export]
+	PackedScene enemybase;
 
 	[Export] PackedScene boss;
     Globals globals;
@@ -17,11 +17,11 @@ public partial class WorldController : Node2D
     [Export]
     Timer spawntimer;
 
-    public override void _Ready()
-    {
-        globals = GetNode<Globals>("/root/Globals");
-        sgbus = GetNode<SignalBus>("/root/Signalbus");
-        GD.Randomize();
+	public override void _Ready()
+	{
+		globals = GetNode<Globals>("/root/Globals");
+		sgbus = GetNode<SignalBus>("/root/Signalbus");
+		GD.Randomize();
 
 
     }
@@ -104,4 +104,5 @@ public partial class WorldController : Node2D
     {
         SpawnEnemy(currentlySpawning);
     }
+
 }
