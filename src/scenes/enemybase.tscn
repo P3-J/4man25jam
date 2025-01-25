@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c1etyke707vnw"]
+[gd_scene load_steps=13 format=3 uid="uid://c1etyke707vnw"]
 
 [ext_resource type="Script" path="res://src/scripts/Enemybase.cs" id="1_0bo2d"]
 [ext_resource type="Texture2D" uid="uid://dd0shqr83ljtv" path="res://src/textures/baldeaglespritesheet.png" id="2_7hb3b"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="2_dvulp"]
+[ext_resource type="AudioStream" uid="uid://cmbosjmf3bnyd" path="res://src/muss/heli/caaaw.mp3" id="4_vgl5q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2wj8"]
 resource_local_to_scene = true
@@ -84,6 +85,10 @@ target_position = Vector2(0, -192)
 [node name="hittimer" type="Timer" parent="misc"]
 wait_time = 0.5
 one_shot = true
+
+[node name="caaaw" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vgl5q")
+volume_db = 10.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]

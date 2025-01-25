@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
-[ext_resource type="PackedScene" uid="uid://bxoday7sk4xic" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
+[ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="3_admt3"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_pv3m6"]
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="4_fhttg"]
