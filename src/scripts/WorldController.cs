@@ -27,6 +27,7 @@ public partial class WorldController : Node2D
         globals = GetNode<Globals>("/root/Globals");
         sgbus = GetNode<SignalBus>("/root/Signalbus");
 		sgbus.Connect("StartGame", new Callable(this, nameof(StartGame)));
+		sgbus.Connect("SpawnEnemy", new Callable(this, nameof(SpawnEnemy)));
         GD.Randomize();
     }
 
@@ -64,7 +65,7 @@ public partial class WorldController : Node2D
             {
                 spawntimer.Start();
             }
-            currentlySpawning = "fentplane";
+            currentlySpawning = "eagle";
             return;
         }
 
