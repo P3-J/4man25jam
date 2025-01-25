@@ -1,7 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1etyke707vnw"]
+[gd_scene load_steps=12 format=3 uid="uid://c1etyke707vnw"]
 
 [ext_resource type="Script" path="res://src/scripts/Enemybase.cs" id="1_0bo2d"]
 [ext_resource type="Texture2D" uid="uid://dd0shqr83ljtv" path="res://src/textures/baldeaglespritesheet.png" id="2_7hb3b"]
+[ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="2_dvulp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2wj8"]
+resource_local_to_scene = true
+shader = ExtResource("2_dvulp")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qf0pr"]
 atlas = ExtResource("2_7hb3b")
@@ -49,18 +56,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hlhd"]
 size = Vector2(64, 32)
 
-[node name="enemybase" type="CharacterBody2D" node_paths=PackedStringArray("enemysprite", "raycastparent")]
+[node name="enemybase" type="CharacterBody2D" node_paths=PackedStringArray("enemysprite", "raycastparent", "hitbox") groups=["enemy"]]
 script = ExtResource("1_0bo2d")
 enemysprite = NodePath("enemysprite")
 raycastparent = NodePath("raycastparent")
+hitbox = NodePath("Area2D")
 
 [node name="enemysprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_h2wj8")
 position = Vector2(-4.76837e-07, -2.38419e-06)
 scale = Vector2(0.117073, 0.117073)
 sprite_frames = SubResource("SpriteFrames_8ugp6")
 autoplay = "default"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_1hlhd")
@@ -69,3 +78,12 @@ shape = SubResource("RectangleShape2D_1hlhd")
 
 [node name="RayCast2D" type="RayCast2D" parent="raycastparent"]
 target_position = Vector2(0, -192)
+
+[node name="misc" type="Node" parent="."]
+
+[node name="hittimer" type="Timer" parent="misc"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]

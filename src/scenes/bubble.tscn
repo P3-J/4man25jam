@@ -1,11 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://du3eoicf0hcow"]
+[gd_scene load_steps=12 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
-[ext_resource type="Texture2D" uid="uid://brcdjbpbwb8oe" path="res://src/textures/bubble.png" id="1_hdyg6"]
 [ext_resource type="PackedScene" uid="uid://bxoday7sk4xic" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="3_admt3"]
-[ext_resource type="Texture2D" uid="uid://dw0myh3xsbon8" path="res://src/textures/pics/xi.png" id="4_akecl"]
+[ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_pv3m6"]
+[ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="4_fhttg"]
 [ext_resource type="Texture2D" uid="uid://cooj82ciuohkf" path="res://src/textures/shotbar.png" id="5_c4k31"]
+[ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="5_t7p2u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sknfw"]
+shader = ExtResource("3_pv3m6")
+shader_parameter/active = false
+shader_parameter/tint = Color(0.952941, 0.0196078, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xafi"]
 radius = 64.0
@@ -24,16 +30,19 @@ aimrotater = NodePath("aimcircle")
 bubbleproj = ExtResource("2_v1hjq")
 
 [node name="bubblesprite" type="Sprite2D" parent="."]
-scale = Vector2(0.256, 0.256)
-texture = ExtResource("1_hdyg6")
+material = SubResource("ShaderMaterial_sknfw")
+position = Vector2(0, -42.6667)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_fhttg")
 
-[node name="Xi" type="Sprite2D" parent="bubblesprite"]
+[node name="sateliit" type="Sprite2D" parent="bubblesprite"]
 z_index = -1
-position = Vector2(0, 83.3333)
-scale = Vector2(1.00813, 0.5)
-texture = ExtResource("4_akecl")
+position = Vector2(-10.6667, 389.333)
+scale = Vector2(4, 4)
+texture = ExtResource("5_t7p2u")
 
 [node name="bubblecollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -42.6667)
 shape = SubResource("CircleShape2D_8xafi")
 
 [node name="aimcircle" type="Node2D" parent="."]
@@ -63,11 +72,16 @@ texture = ExtResource("3_admt3")
 visible = false
 texture_filter = 1
 offset_left = -64.0
-offset_top = 85.3333
+offset_top = 101.333
 offset_right = 64.0
-offset_bottom = 90.3333
+offset_bottom = 106.333
 theme_override_styles/background = SubResource("StyleBoxTexture_l2h06")
 theme_override_styles/fill = SubResource("StyleBoxFlat_cu1yy")
 show_percentage = false
 
+[node name="hittimer" type="Timer" parent="misc"]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="misc/shottimer" to="." method="_on_shottimer_timeout"]
+[connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]
