@@ -4,8 +4,8 @@ using System;
 public partial class Bubble : CharacterBody2D
 {
 	[Export] public float MaxSpeed = 200f; 
-    [Export] public float Acceleration = 400f; 
-    [Export] public float Deceleration = 500f;
+	[Export] public float Acceleration = 400f; 
+	[Export] public float Deceleration = 500f;
 	[Export] public Sprite2D bubblesprite;
 	[Export] private Node2D aimrotater;
 	[Export] PackedScene bubbleproj;
@@ -27,13 +27,18 @@ public partial class Bubble : CharacterBody2D
 
 	private Globals globals;
 	private SignalBus sgbus;
+	
+	private AudioStreamPlayer2D bubblePop;
+
+	
 
 
-    public override void _Ready()
-    {
-        base._Ready();
+	public override void _Ready()
+	{
+		base._Ready();
 		globals = GetNode<Globals>("/root/Globals");
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
+		bubblePop = GetNode<AudioStreamPlayer2D>("bubblePop");
 
 
 		shootStartPoint = aimrotater.GetNode<Marker2D>("startchargespot");
@@ -45,31 +50,31 @@ public partial class Bubble : CharacterBody2D
 		sgbus.Connect("PlayerGetHit", new Callable(this, nameof(GetHit)));
 
 		globals.player = this;
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
-        Vector2 velocity = Velocity;
+		Vector2 velocity = Velocity;
 
-        Vector2 direction = PlayerInput(); 
+		Vector2 direction = PlayerInput(); 
 
 		Sway();
 		ChargeBar();
 
-        if (direction != Vector2.Zero)
-        {
-            velocity.X = Mathf.MoveToward(velocity.X, direction.X * MaxSpeed, Acceleration * (float)delta);
-            velocity.Y = Mathf.MoveToward(velocity.Y, direction.Y * MaxSpeed, Acceleration * (float)delta);
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(velocity.X, 0, Deceleration * (float)delta);
-            velocity.Y = Mathf.MoveToward(velocity.Y, 0, Deceleration * (float)delta);
-        }
+		if (direction != Vector2.Zero)
+		{
+			velocity.X = Mathf.MoveToward(velocity.X, direction.X * MaxSpeed, Acceleration * (float)delta);
+			velocity.Y = Mathf.MoveToward(velocity.Y, direction.Y * MaxSpeed, Acceleration * (float)delta);
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(velocity.X, 0, Deceleration * (float)delta);
+			velocity.Y = Mathf.MoveToward(velocity.Y, 0, Deceleration * (float)delta);
+		}
 
-        Velocity = velocity;
-        MoveAndSlide();
-    }
+		Velocity = velocity;
+		MoveAndSlide();
+	}
 
 	private void ChargeBar(){
 		if (chargingBubbleGun){
@@ -105,7 +110,10 @@ public partial class Bubble : CharacterBody2D
 			shootStartPoint.RemoveChild(currentProj);
 
 			if (shotbar.Value < 50 || shotbar.Value > 76){
-				currentProj.QueueFree(); // remove it , or pop it whatever
+				currentProj.QueueFree(); // Greks pop
+				bubblePop.Play();
+
+				
 			}
 
 			GetTree().CurrentScene.AddChild(currentProj);
@@ -117,15 +125,15 @@ public partial class Bubble : CharacterBody2D
 	}
 	
 
-    private void CreateBubble()
-    {
+	private void CreateBubble()
+	{
 		currentProj = null;
-        Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
+		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
 		currentProj = crntBubble;
 		shootStartPoint.AddChild(crntBubble);
 		crntBubble.ZIndex = -1;
 		crntBubble.GlobalPosition = shootStartPoint.GlobalPosition;
-    }
+	}
 
 	private void GetHit(int amount){
 		bubblesprite.Material.Set("shader_parameter/active", true);
@@ -137,7 +145,7 @@ public partial class Bubble : CharacterBody2D
 		bubblesprite.Material.Set("shader_parameter/active", false);
 	}
 
-    private Vector2 PlayerInput(){
+	private Vector2 PlayerInput(){
 		Vector2 Direction = new Vector2();
 		swaying = false;
 
