@@ -62,6 +62,15 @@ public partial class Bossscenemanager : Node2D
 			CreateBubble(spot5);
 			phase2timer.Start();
 		}
+
+		if (currentphase == 2){
+
+			CreateBubble(spot2);
+			CreateBubble(spot4);
+			CreateBubble(spot5);
+			phasing = false;
+			currentphase = 0;
+		}
     }
 
 	public void NotPhasing(){
