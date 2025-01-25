@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://src/scripts/Coin.cs" id="3_6rq48"]
 [ext_resource type="PackedScene" uid="uid://du3eoicf0hcow" path="res://src/scenes/bubble.tscn" id="3_gsgt4"]
 [ext_resource type="AudioStream" uid="uid://d086n4uidx73x" path="res://src/muss/laul2.mp3" id="6_65prq"]
-[ext_resource type="PackedScene" path="res://src/scenes/ui.tscn" id="7_ersws"]
+[ext_resource type="PackedScene" uid="uid://bs3gcmojuecfu" path="res://src/scenes/ui.tscn" id="7_ersws"]
 [ext_resource type="Texture2D" uid="uid://c7btg5yfklroj" path="res://src/textures/drunkmanspritesheet.png" id="7_pryvd"]
 [ext_resource type="PackedScene" uid="uid://dgsbjmxdvo46q" path="res://src/scenes/background.tscn" id="8_6mk7t"]
 
@@ -77,9 +77,10 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="world" type="Node2D"]
+[node name="world" type="Node2D" node_paths=PackedStringArray("spawntimer")]
 script = ExtResource("1_e2we7")
 enemybase = ExtResource("2_m0shd")
+spawntimer = NodePath("misc/spawntimer")
 
 [node name="coin" type="Area2D" parent="."]
 position = Vector2(727, 324)

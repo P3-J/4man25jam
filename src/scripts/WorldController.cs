@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class WorldController : Node2D
@@ -8,9 +9,28 @@ public partial class WorldController : Node2D
 
     Globals globals;
 
+    private SignalBus sgbus;
+
+    readonly List<string> LevelEnemyList = new() { "eagle", "eagle", "eagle", "eagle", "eagle" };
+    readonly List<float> LevelEnemySpawnTime = new() { 3f, 2f, 1f, 1f, 1f };
+
+    [Export]
+    Timer spawntimer;
+
     public override void _Ready()
     {
         globals = GetNode<Globals>("/root/Globals");
+        sgbus = GetNode<SignalBus>("/root/Signalbus");
+        GD.Randomize();
+
+        spawntimer.WaitTime = LevelEnemySpawnTime[globals.currentLevel];
+
+        sgbus.Connect("LevelUpSignal", new Callable(this, nameof(SetNewSpawnTime)));
+    }
+
+    public void SetNewSpawnTime(int nextLevel)
+    {
+        spawntimer.WaitTime = LevelEnemySpawnTime[nextLevel];
     }
 
     public override void _Process(double delta)
@@ -20,8 +40,6 @@ public partial class WorldController : Node2D
 
     public void SpawnEnemy(string enemytype)
     {
-        GD.Randomize();
-
         Enemybase enemy = enemybase.Instantiate<Enemybase>();
 
         bool spawnDirectionLeft = GD.Randi() % 2 == 1;
@@ -45,6 +63,6 @@ public partial class WorldController : Node2D
 
     private void _on_spawntimer_timeout()
     {
-        SpawnEnemy("test");
+        SpawnEnemy(LevelEnemyList[globals.currentLevel]);
     }
 }
