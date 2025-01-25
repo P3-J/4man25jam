@@ -56,7 +56,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_admt3")
 
 [node name="startchargespot" type="Marker2D" parent="aimcircle"]
-position = Vector2(64, 0)
+position = Vector2(106.667, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="aimcircle/startchargespot"]
 visible = false

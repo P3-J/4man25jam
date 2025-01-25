@@ -32,7 +32,7 @@ public partial class Bubbleprojectile : Area2D
 	private void _on_area_entered(Node2D body){
 
 		if (body.IsInGroup("enemy")){
-			sgbus.EmitSignal("EnemyGetHit", body , damage);
+			sgbus.EmitSignal("EnemyGetHit", body , damage, this);
 		}
 
 	}

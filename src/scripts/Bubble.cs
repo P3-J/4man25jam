@@ -24,6 +24,7 @@ public partial class Bubble : CharacterBody2D
 	private string swayingDir = "";
 	private bool chargingBubbleGun = false;
 	private bool shotoncooldown = false;
+	private Vector2 mouseDirection = new Vector2();
 
 	private Globals globals;
 	private SignalBus sgbus;
@@ -52,6 +53,12 @@ public partial class Bubble : CharacterBody2D
         Vector2 velocity = Velocity;
 
         Vector2 direction = PlayerInput(); 
+
+		mouseDirection = GetGlobalMousePosition();
+		Vector2 mousedir = (mouseDirection - GlobalPosition).Normalized();
+		aimrotater.Rotation = mousedir.Angle();
+
+
 
 		Sway();
 		ChargeBar();
@@ -123,7 +130,7 @@ public partial class Bubble : CharacterBody2D
         Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
 		currentProj = crntBubble;
 		shootStartPoint.AddChild(crntBubble);
-		crntBubble.ZIndex = -1;
+		crntBubble.ZIndex = 1;
 		crntBubble.GlobalPosition = shootStartPoint.GlobalPosition;
     }
 
@@ -159,15 +166,6 @@ public partial class Bubble : CharacterBody2D
 			Direction.X = 1;
 			swayingDir = "right";
 			swaying = true;
-		}
-
-
-		if (Input.IsActionPressed("aimup")){
-			aimrotater.Rotation += 0.05f;
-		}
-
-		if (Input.IsActionPressed("aimdown")){
-			aimrotater.Rotation -= 0.05f;
 		}
 
 		if (Input.IsActionJustPressed("charge") && !chargingBubbleGun && !shotoncooldown){
