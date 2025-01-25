@@ -65,5 +65,4 @@ public partial class WorldController : Node2D
     {
         //SpawnEnemy(LevelEnemyList[globals.currentLevel]);
     }
-
 }
