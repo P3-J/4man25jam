@@ -4,8 +4,8 @@ using Godot;
 
 public partial class WorldController : Node2D
 {
-    [Export]
-    PackedScene enemybase;
+	[Export]
+	PackedScene enemybase;
 
     [Export]
     PackedScene boss;
@@ -15,8 +15,9 @@ public partial class WorldController : Node2D
     public bool bossSpawned;
     private SignalBus sgbus;
 
-    [Export]
-    Timer spawntimer;
+
+	[Export]
+	Timer spawntimer;
 
     public override void _Ready()
     {
@@ -30,6 +31,7 @@ public partial class WorldController : Node2D
         globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
         checkStage();
     }
+
 
     public void checkStage()
     {
@@ -75,13 +77,14 @@ public partial class WorldController : Node2D
         }
     }
 
-    public void SpawnEnemy(string enemytype)
-    {
-        Enemybase enemy = enemybase.Instantiate<Enemybase>();
+	public void SpawnEnemy(string enemytype)
+	{
+		Enemybase enemy = enemybase.Instantiate<Enemybase>();
 
-        bool spawnDirectionLeft = GD.Randi() % 2 == 1;
-        // true = right , false = left
-        float spawnHeight = GD.RandRange(-300, 300); // first top height,  after + bottom height = bottom + top
+		bool spawnDirectionLeft = GD.Randi() % 2 == 1;
+		// true = right , false = left
+		float spawnHeight = GD.RandRange(-300, 300); // first top height,  after + bottom height = bottom + top
+
 
         if (spawnDirectionLeft)
         {
@@ -100,8 +103,10 @@ public partial class WorldController : Node2D
         }
     }
 
+
     private void _on_spawntimer_timeout()
     {
         SpawnEnemy(currentlySpawning);
     }
+
 }

@@ -136,6 +136,7 @@ public partial class Enemybase : CharacterBody2D
         enemysprite.Material.Set("shader_parameter/active", false);
     }
 
+
     private void CheckIfOutOfBounds()
     {
         if (
