@@ -1,28 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgsbjmxdvo46q"]
+[gd_scene load_steps=6 format=3 uid="uid://dgsbjmxdvo46q"]
 
-[ext_resource type="Script" path="res://src/scenes/Background.cs" id="1_7hp6s"]
-[ext_resource type="Texture2D" uid="uid://ca11pkb0ew1ae" path="res://src/textures/stars.png" id="2_2lsja"]
+[ext_resource type="Script" path="res://src/scripts/Background.cs" id="1_7hp6s"]
+[ext_resource type="Texture2D" uid="uid://cscksxsn74vix" path="res://src/textures/background/vertical/vertical1.png" id="2_ubufb"]
 [ext_resource type="Texture2D" uid="uid://ba3yfdiyw8ug3" path="res://src/textures/gradient.png" id="3_jflup"]
 [ext_resource type="Texture2D" uid="uid://chbgvfc7rqhaw" path="res://src/textures/clouds.png" id="3_r678t"]
+[ext_resource type="Texture2D" uid="uid://cw18m0geh4rnf" path="res://src/textures/background/startbackground.png" id="5_2hlpe"]
 
-[node name="Background" type="Node2D"]
+[node name="Background" type="Node2D" node_paths=PackedStringArray("backgroundGradient", "startBackground", "verticalBackground")]
+position = Vector2(-13, 0)
 script = ExtResource("1_7hp6s")
+backgroundGradient = NodePath("BackgroundGradient")
+startBackground = NodePath("StartBackground")
+verticalBackground = NodePath("VerticalBackground")
 
 [node name="VerticalBackground" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0, 0)
-scroll_offset = Vector2(16, 0)
-repeat_size = Vector2(0, 600)
-autoscroll = Vector2(0, 100)
-limit_begin = Vector2(0, 0)
-limit_end = Vector2(100, 100)
+repeat_size = Vector2(0, 1539)
+autoscroll = Vector2(0, 200)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="VerticalBackground"]
 z_index = 1
-position = Vector2(360, 343)
-scale = Vector2(3, 3)
-texture = ExtResource("2_2lsja")
+position = Vector2(423, 51)
+texture = ExtResource("2_ubufb")
 
 [node name="HorizontalBackground" type="Parallax2D" parent="."]
+visible = false
 scroll_scale = Vector2(0, 0)
 repeat_size = Vector2(640, 0)
 autoscroll = Vector2(200, 0)
@@ -34,5 +37,10 @@ position = Vector2(313, 304)
 texture = ExtResource("3_r678t")
 
 [node name="BackgroundGradient" type="Sprite2D" parent="."]
-position = Vector2(355, -365)
+position = Vector2(427, -481)
 texture = ExtResource("3_jflup")
+
+[node name="StartBackground" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(421, 408)
+texture = ExtResource("5_2hlpe")
