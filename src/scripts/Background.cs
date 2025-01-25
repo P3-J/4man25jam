@@ -32,6 +32,9 @@ public partial class Background : Node2D
     [Export]
     Sprite2D verticalBackgroundSprite;
 
+    [Export]
+    PackedScene cloudScene;
+
     SignalBus sgbus;
 
     // Called when the node enters the scene tree for the first time.
@@ -58,6 +61,8 @@ public partial class Background : Node2D
             if (stepsDone >= stepsNeeded)
             {
                 startBackground.QueueFree();
+                Node cloudSceneNode = cloudScene.Instantiate();
+                AddChild(cloudSceneNode);
                 IsGameStartSequence = false;
             }
         }

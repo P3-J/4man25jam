@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://bf8osow65f2n5"]
+
+[ext_resource type="Texture2D" uid="uid://d28jdg7jye8fs" path="res://src/textures/pics/animatedcloud/cloud_pix_2.png" id="1_aebes"]
+[ext_resource type="Texture2D" uid="uid://djxuhkudk3kxy" path="res://src/textures/pics/animatedcloud/cloud_pix_3.png" id="2_ak37s"]
+[ext_resource type="Texture2D" uid="uid://2ogldf1vwl4x" path="res://src/textures/pics/animatedcloud/cloud_pix_4.png" id="3_4e354"]
+[ext_resource type="Texture2D" uid="uid://bigvju48xsdxy" path="res://src/textures/pics/animatedcloud/cloud_pix_5.png" id="4_3yl2e"]
+[ext_resource type="Texture2D" uid="uid://bj1pv61uusg44" path="res://src/textures/pics/animatedcloud/cloud_pix_6.png" id="5_4qh8u"]
+[ext_resource type="Texture2D" uid="uid://brtb66c1h5vru" path="res://src/textures/pics/animatedcloud/cloud_pix_7.png" id="6_j2hf4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bd1fd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aebes")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ak37s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4e354")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3yl2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4qh8u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j2hf4")
+}],
+"loop": true,
+"name": &"cloud",
+"speed": 5.0
+}]
+
+[node name="CloudParallax" type="Parallax2D"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(800, 0)
+autoscroll = Vector2(300, 0)
+repeat_times = 3
+
+[node name="AnimatedCloud" type="AnimatedSprite2D" parent="."]
+position = Vector2(598, 384)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_bd1fd")
+animation = &"cloud"
+autoplay = "cloud"
+frame_progress = 0.341591
+
+[node name="AnimatedCloud2" type="AnimatedSprite2D" parent="."]
+position = Vector2(666, 162)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_bd1fd")
+animation = &"cloud"
+autoplay = "cloud"
+frame_progress = 0.570001
+
+[node name="AnimatedCloud3" type="AnimatedSprite2D" parent="."]
+position = Vector2(350, 304)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_bd1fd")
+animation = &"cloud"
+autoplay = "cloud"
+frame_progress = 0.14239
+
+[node name="AnimatedCloud5" type="AnimatedSprite2D" parent="."]
+position = Vector2(673, 544)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_bd1fd")
+animation = &"cloud"
+autoplay = "cloud"
+frame_progress = 0.14239
+
+[node name="AnimatedCloud6" type="AnimatedSprite2D" parent="."]
+position = Vector2(151, 478)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_bd1fd")
+animation = &"cloud"
+autoplay = "cloud"
+frame_progress = 0.14239
+
+[node name="AnimatedCloud4" type="AnimatedSprite2D" parent="."]
+position = Vector2(144, 144)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_bd1fd")
+animation = &"cloud"
+autoplay = "cloud"
+frame_progress = 0.14239
