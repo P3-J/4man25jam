@@ -82,7 +82,7 @@ public partial class Bubble : CharacterBody2D
 
 	private void ChargeBar(){
 		if (chargingBubbleGun){
-			shotbar.Value += 1;
+			shotbar.Value += 1.5;
 		} 
 	}
 
