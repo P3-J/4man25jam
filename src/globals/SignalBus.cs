@@ -7,5 +7,5 @@ public partial class SignalBus : Node
     public delegate void ExampleSignalEventHandler();
 
     [Signal]
-    public delegate void LevelUpSignalEventHandler();
+    public delegate void LevelUpSignalEventHandler(int nextLevel);
 }
