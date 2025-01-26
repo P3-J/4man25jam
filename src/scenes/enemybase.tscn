@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c1etyke707vnw"]
+[gd_scene load_steps=26 format=3 uid="uid://c1etyke707vnw"]
 
 [ext_resource type="Script" path="res://src/scripts/Enemybase.cs" id="1_0bo2d"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="2_dvulp"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://cuxhtfqwt46o0" path="res://src/textures/pics/fentplane/fentplane3.png" id="6_ofm7k"]
 [ext_resource type="Texture2D" uid="uid://83yspqxkircn" path="res://src/textures/jetspritesheet.png" id="7_xwcpo"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="9_12abf"]
+[ext_resource type="AudioStream" uid="uid://2tbpefykt81v" path="res://src/muss/heli/jetDeathSound.mp3" id="11_dudfa"]
+[ext_resource type="AudioStream" uid="uid://befihm1a78fn2" path="res://src/muss/heli/paperPlaneDeathSound.mp3" id="13_grsh5"]
+[ext_resource type="AudioStream" uid="uid://cedlbt04wwim2" path="res://src/muss/heli/eagleDeathSound.mp3" id="15_asqve"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2wj8"]
 resource_local_to_scene = true
@@ -155,12 +158,29 @@ texture = ExtResource("9_12abf")
 wait_time = 0.3
 one_shot = true
 
-[node name="caaaw" type="AudioStreamPlayer2D" parent="."]
+[node name="shottimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="sound" type="Node" parent="."]
+
+[node name="caaaw" type="AudioStreamPlayer2D" parent="sound"]
 stream = ExtResource("4_vgl5q")
 volume_db = 10.0
 
-[node name="shottimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="eagleDeathSound" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("15_asqve")
+volume_db = 10.0
+playback_type = 2
+
+[node name="jetDeathSound" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("11_dudfa")
+volume_db = 10.0
+playback_type = 2
+
+[node name="paperPlaneDeathSound" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("13_grsh5")
+volume_db = 10.0
+playback_type = 2
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]

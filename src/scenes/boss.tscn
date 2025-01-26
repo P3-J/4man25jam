@@ -6,7 +6,7 @@
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_6yytb"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="5_5d8et"]
 [ext_resource type="Texture2D" uid="uid://bq7je1sg8e6an" path="res://src/textures/satellitebossspritesheet.png" id="7_erair"]
-[ext_resource type="AudioStream" uid="uid://q8g1ja0a0gnm" path="res://src/muss/boss2.mp3" id="7_h0f5c"]
+[ext_resource type="AudioStream" uid="uid://q8g1ja0a0gnm" path="res://src/muss/mussika/boss2 (2).mp3" id="7_h0f5c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynx36"]
 size = Vector2(224, 37)
