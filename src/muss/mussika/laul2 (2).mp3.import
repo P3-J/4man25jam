@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d086n4uidx73x"
+path="res://.godot/imported/laul2 (2).mp3-4e7706dfb8e9003d96afd3e376d4ecce.mp3str"
+
+[deps]
+
+source_file="res://src/muss/mussika/laul2 (2).mp3"
+dest_files=["res://.godot/imported/laul2 (2).mp3-4e7706dfb8e9003d96afd3e376d4ecce.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

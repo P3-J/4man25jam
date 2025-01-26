@@ -26,6 +26,11 @@ public partial class Enemybase : CharacterBody2D
 	private Timer hittimer;
 	private Globals globals;
 	private SignalBus sgbus;
+	private AudioStreamPlayer2D caaaw;
+	private AudioStreamPlayer2D paperPlaneDeathSound;
+	private AudioStreamPlayer2D jetDeathSound;
+	private AudioStreamPlayer2D eagleDeathSound;
+	
 
 	private bool isPlaneFalling = false;
 
@@ -39,6 +44,10 @@ public partial class Enemybase : CharacterBody2D
 		raycast = raycastparent.GetNode<RayCast2D>("RayCast2D");
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
 		hittimer = GetNode<Timer>("misc/hittimer");
+		caaaw = GetNode<AudioStreamPlayer2D>("sound/caaaw");
+		paperPlaneDeathSound = GetNode<AudioStreamPlayer2D>("sound/paperPlaneDeathSound");
+		jetDeathSound = GetNode<AudioStreamPlayer2D>("sound/jetDeathSound");
+		eagleDeathSound = GetNode<AudioStreamPlayer2D>("sound/eagleDeathSound");
 		sgbus.Connect("EnemyGetHit", new Callable(this, nameof(GetHit)));
 
 
@@ -53,11 +62,13 @@ public partial class Enemybase : CharacterBody2D
 			enemysprite.Animation = "eagle";
 		}
 
+
         if (enemyname == "jet"){
             Speed = 300f;
             Scale = new Vector2(1.25f, 1.25f);
             enemysprite.Animation = "jet";
         }
+
 
 		enemysprite.Play();
 		
@@ -73,7 +84,7 @@ public partial class Enemybase : CharacterBody2D
 			raycastparent.Rotation += Mathf.Pi / 2;
 			if (raycast.IsColliding() && !isAggro)
 			{
-				AudioStreamPlayer2D caaaw = GetNode<AudioStreamPlayer2D>("caaaw");
+				AudioStreamPlayer2D caaaw = GetNode<AudioStreamPlayer2D>("sound/caaaw");
 				caaaw.Play();
 
 				CharacterBody2D collider = (CharacterBody2D)raycast.GetCollider();
@@ -160,6 +171,18 @@ public partial class Enemybase : CharacterBody2D
 	{
 		if (HP <= 0)
 		{
+			if (enemyname == "fentplane")
+			{
+				paperPlaneDeathSound.Play();
+			}
+			if (enemyname == "jet")
+			{
+				jetDeathSound.Play();
+			}
+			if (enemyname == "eagle")
+			{
+				eagleDeathSound.Play();
+			}
 			QueueFree();
 		}
 	}
@@ -176,8 +199,8 @@ public partial class Enemybase : CharacterBody2D
 		crntBubble.ZIndex = 0;
 		crntBubble.enemyowner = true;
 		crntBubble.dir = (AimPos - Position).Normalized();
-        crntBubble.speed = 300f;
-        crntBubble.Scale = new Vector2(0.75f, 0.75f); 
+		crntBubble.speed = 300f;
+		crntBubble.Scale = new Vector2(0.75f, 0.75f); 
 		GetTree().CurrentScene.AddChild(crntBubble);
 		crntBubble.GlobalPosition = GlobalPosition;
 	}
