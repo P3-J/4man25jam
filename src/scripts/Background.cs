@@ -108,7 +108,7 @@ public partial class Background : Node2D
 
     public void TransitionBackgroundGradient(int nextLevel)
     {
-        GradientTargetY = backgroundGradient.Position.Y + 700;
+        GradientTargetY = backgroundGradient.Position.Y + 500;
         GradientIsMoving = true;
     }
 
