@@ -6,28 +6,30 @@ public partial class WorldController : Node2D
 {
 	[Export]
 	PackedScene enemybase;
-    [Export]
-    PackedScene boss;
+	[Export]
+	PackedScene boss;
 	[Export]
 	Background bg;
 
-    Globals globals;
+	Globals globals;
 	
 
-    public string currentlySpawning = "";
-    public bool bossSpawned;
-    private SignalBus sgbus;
+	public string currentlySpawning = "";
+	public bool bossSpawned;
+	private SignalBus sgbus;
+	private AudioStreamPlayer AudioStreamPlayer;
 
 
 	[Export]
 	Timer spawntimer;
 
-    public override void _Ready()
-    {
-        globals = GetNode<Globals>("/root/Globals");
-        sgbus = GetNode<SignalBus>("/root/Signalbus");
+	public override void _Ready()
+	{
+		globals = GetNode<Globals>("/root/Globals");
+		sgbus = GetNode<SignalBus>("/root/Signalbus");
 		sgbus.Connect("StartGame", new Callable(this, nameof(StartGame)));
 		sgbus.Connect("SpawnEnemy", new Callable(this, nameof(SpawnEnemy)));
+
         sgbus.Connect("SwitchToDeathScene", new Callable(this, nameof(SwitchToDeathScene)));
 
         globals.exampleGlobal = 0;
@@ -37,12 +39,14 @@ public partial class WorldController : Node2D
         GD.Randomize();
     }
 
-    public override void _Process(double delta)
-    {
-        if (bg.IsGameStartSequence){
+
+	public override void _Process(double delta)
+	{
+		if (bg.IsGameStartSequence){
 			globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
             checkStage();
 		}
+
 		
     }
 
@@ -55,6 +59,7 @@ public partial class WorldController : Node2D
         GetTree().ChangeSceneToFile("res://src/scenes/failurescreen.tscn");
     }
 
+
 		
 	public void StartGame(){
 		globals.player.Visible = true;
@@ -66,6 +71,7 @@ public partial class WorldController : Node2D
             spawntimer.Start();
         }
     }
+
 
 
     public void checkStage()
@@ -103,6 +109,7 @@ public partial class WorldController : Node2D
         }
     }
 
+
 	public void SpawnEnemy(string enemytype)
 	{
 		Enemybase enemy = enemybase.Instantiate<Enemybase>();
@@ -112,22 +119,22 @@ public partial class WorldController : Node2D
 		float spawnHeight = GD.RandRange(-400, 400); // first top height,  after + bottom height = bottom + top
 
 
-        if (spawnDirectionLeft)
-        {
-            enemy.GlobalPosition = new Vector2(1000, spawnHeight);
-            enemy.enemyname = enemytype;
-            GetTree().CurrentScene.AddChild(enemy);
-            enemy.Fliphorizontal();
-            enemy.dir = new Vector2(-1, 0);
-        }
-        else
-        {
-            enemy.GlobalPosition = new Vector2(-1000, spawnHeight);
-            enemy.enemyname = enemytype;
-            GetTree().CurrentScene.AddChild(enemy);
-            enemy.dir = new Vector2(+1, 0);
-        }
-    }
+		if (spawnDirectionLeft)
+		{
+			enemy.GlobalPosition = new Vector2(1000, spawnHeight);
+			enemy.enemyname = enemytype;
+			GetTree().CurrentScene.AddChild(enemy);
+			enemy.Fliphorizontal();
+			enemy.dir = new Vector2(-1, 0);
+		}
+		else
+		{
+			enemy.GlobalPosition = new Vector2(-1000, spawnHeight);
+			enemy.enemyname = enemytype;
+			GetTree().CurrentScene.AddChild(enemy);
+			enemy.dir = new Vector2(+1, 0);
+		}
+	}
 
 
 	private void _on_spawntimer_timeout()

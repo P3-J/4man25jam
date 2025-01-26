@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://1d3ihxw47ja4"]
+[gd_scene load_steps=15 format=3 uid="uid://1d3ihxw47ja4"]
 
 [ext_resource type="Script" path="res://src/scripts/Bossscenemanager.cs" id="1_51xgi"]
 [ext_resource type="Script" path="res://src/scripts/Boss.cs" id="1_ix0yk"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_jtyd7"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_6yytb"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="5_5d8et"]
+[ext_resource type="AudioStream" uid="uid://b0co854p37noo" path="res://src/muss/boss1.mp3" id="7_gme0h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bt1fd"]
 shader = ExtResource("3_6yytb")
@@ -329,6 +330,10 @@ position = Vector2(-4, 368)
 
 [node name="start" type="Marker2D" parent="aimspots"]
 position = Vector2(6, -276)
+
+[node name="boss1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_gme0h")
+autoplay = true
 
 [connection signal="timeout" from="boss/hittimer" to="." method="_on_hittimer_timeout"]
 [connection signal="body_entered" from="boss/Node2D/laser" to="." method="_on_laser_body_entered"]

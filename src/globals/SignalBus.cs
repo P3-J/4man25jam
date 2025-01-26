@@ -3,6 +3,7 @@ using Godot;
 
 public partial class SignalBus : Node
 {
+
     [Signal]
     public delegate void ExampleSignalEventHandler();
     [Signal]
@@ -19,5 +20,6 @@ public partial class SignalBus : Node
     public delegate void StartGameEventHandler();
     [Signal]
     public delegate void SwitchToDeathSceneEventHandler();
+
 
 }

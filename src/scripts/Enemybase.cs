@@ -4,6 +4,7 @@ using Godot;
 
 public partial class Enemybase : CharacterBody2D
 {
+
     public float Speed = 300.0f;
     public Vector2 dir = new Vector2();
     public bool isAggro = false;
@@ -174,4 +175,5 @@ public partial class Enemybase : CharacterBody2D
     {
         enemysprite.FlipH = true;
     }
+
 }

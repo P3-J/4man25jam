@@ -3,6 +3,7 @@ using Godot;
 
 public partial class Ui : Node2D
 {
+
     [Export]
     RichTextLabel startHeight;
 
@@ -49,4 +50,5 @@ public partial class Ui : Node2D
             heightProgressBar.MaxValue = nextLevelHeightNeeded;
         }
     }
+
 }
