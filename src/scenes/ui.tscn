@@ -18,28 +18,34 @@ heightProgressBar = NodePath("HeightProgressBar")
 custom_minimum_size = Vector2(100, 35)
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = 81.0
-offset_top = 1.0
-offset_right = 181.0
-offset_bottom = 36.0
+offset_left = 16.0
+offset_top = 22.0
+offset_right = 116.0
+offset_bottom = 690.0
 grow_vertical = 2
+scale = Vector2(0.25, 0.25)
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_1u48r")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ecrbx")
 min_value = 10.0
 value = 10.0
+fill_mode = 3
 show_percentage = false
 metadata/_edit_group_ = true
 
 [node name="StartHeight" type="RichTextLabel" parent="HeightProgressBar"]
 layout_mode = 0
-offset_left = -48.0
-offset_top = -2.0
-offset_bottom = 38.0
+offset_left = 4.0
+offset_top = 676.0
+offset_right = 184.0
+offset_bottom = 740.0
+theme_override_font_sizes/normal_font_size = 40
+text = "test"
 
 [node name="EndHeight" type="RichTextLabel" parent="HeightProgressBar"]
 layout_mode = 0
-offset_left = 108.0
-offset_top = -1.0
-offset_right = 193.0
-offset_bottom = 39.0
+offset_top = -60.0
+offset_right = 192.0
+offset_bottom = 8.0
+theme_override_font_sizes/normal_font_size = 40
+text = "test"

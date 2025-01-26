@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cbg1qs7mlbdul" path="res://src/muss/heli/chargeSounds.mp3" id="9_gaut3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r7eyd"]
+resource_local_to_scene = true
 shader = ExtResource("3_pv3m6")
 shader_parameter/active = false
 shader_parameter/tint = Color(0.781524, 0.0434156, 0.0240801, 1)

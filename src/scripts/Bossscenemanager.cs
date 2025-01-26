@@ -111,6 +111,7 @@ public partial class Bossscenemanager : Node2D
 		bosshpbar.Value = bosshp;
 		hittimer.Start();
 		bosssprite.Material.Set("shader_parameter/active", true);
+		CheckForDeath();
 	}
 
 	private void _on_hittimer_timeout(){
@@ -120,8 +121,13 @@ public partial class Bossscenemanager : Node2D
 
 	public void CheckForDeath(){
 		if (bosshp <= 0){
-			QueueFree();
+			boss.started = false;
+			animplayer.Play("death");
 		}
+	}
+
+	public void SwitchToEnd(){
+		GetTree().ChangeSceneToFile("res://src/scenes/endscreen.tscn");
 	}
 
 	public void _on_laser_body_entered(Node2D body){
