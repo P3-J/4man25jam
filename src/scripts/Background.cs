@@ -106,36 +106,38 @@ public partial class Background : Node2D
 		}
 	}
 
-	public void TransitionBackgroundGradient(int nextLevel)
-	{
-		GradientTargetY = backgroundGradient.Position.Y + 700;
-		GradientIsMoving = true;
-	}
 
-	public void ModulateBackground(int nextLevel)
-	{
-		switch (nextLevel)
-		{
-			case 1:
-				transitionParallaxList = new List<Parallax2D> { verticalBackground };
-				IsBackgroundTransparentTransition = true;
-				break;
+    public void TransitionBackgroundGradient(int nextLevel)
+    {
+        GradientTargetY = backgroundGradient.Position.Y + 500;
+        GradientIsMoving = true;
+    }
 
-			case 2:
+    public void ModulateBackground(int nextLevel)
+    {
+        switch (nextLevel)
+        {
+            case 1:
+                transitionParallaxList = new List<Parallax2D> { verticalBackground };
+                IsBackgroundTransparentTransition = true;
+                break;
 
-				transitionParallaxList = new List<Parallax2D> { fogParallax };
-				IsBackgroundTransparentTransition = true;
-				break;
+            case 2:
 
-			case 3:
+                transitionParallaxList = new List<Parallax2D> { fogParallax };
+                cloudParallax.Modulate = new Color(1, 1, 1, 0.3f);
+                IsBackgroundTransparentTransition = true;
+                break;
 
-				transitionParallaxList = new List<Parallax2D> { cloudParallax };
-				IsBackgroundTransparentTransition = true;
-				starsParallax.Visible = true;
-				break;
+            case 3:
 
-			default:
-				return;
-		}
-	}
+                transitionParallaxList = new List<Parallax2D> { cloudParallax };
+                IsBackgroundTransparentTransition = true;
+                starsParallax.Visible = true;
+                break;
+
+            default:
+                return;
+        }
+    }
 }

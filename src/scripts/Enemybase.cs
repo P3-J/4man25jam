@@ -62,11 +62,13 @@ public partial class Enemybase : CharacterBody2D
 			enemysprite.Animation = "eagle";
 		}
 
-		if (enemyname == "jet"){
-			Speed = 250f;
-			Scale = new Vector2(1.25f, 1.25f);
-			enemysprite.Animation = "jet";
-		}
+
+        if (enemyname == "jet"){
+            Speed = 300f;
+            Scale = new Vector2(1.25f, 1.25f);
+            enemysprite.Animation = "jet";
+        }
+
 
 		enemysprite.Play();
 		
@@ -121,7 +123,7 @@ public partial class Enemybase : CharacterBody2D
 
 		if (enemyname == "jet"){
 
-			raycastparent.Rotation += 0.01f;
+			raycastparent.Rotation += 0.1f;
 
 			if (shottimer.IsStopped()){
 				shottimer.Start();

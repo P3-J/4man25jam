@@ -25,6 +25,7 @@ offset_right = 289.0
 offset_bottom = 707.0
 
 [node name="exit" type="Button" parent="."]
+layout_mode = 0
 offset_left = 536.0
 offset_top = 636.0
 offset_right = 728.0

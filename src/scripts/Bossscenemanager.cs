@@ -66,18 +66,18 @@ public partial class Bossscenemanager : Node2D
 
 		if (currentphase == 2){
 
-			CreateBubble(spot2);
-			CreateBubble(spot4);
-			CreateBubble(spot3);
+			CreateBubble(spot1);
+			CreateBubble(spot5);
 			phase2timer.Start();
 			return;
 		}
 
 		if (currentphase == 3){
-			for (int i = 0; i < 3; i++)
-			{
-				sgbus.EmitSignal("SpawnEnemy", "eagle");
-			}
+			
+			sgbus.EmitSignal("SpawnEnemy", "eagle");
+			sgbus.EmitSignal("SpawnEnemy", "fentplane");
+			sgbus.EmitSignal("SpawnEnemy", "jet");
+			
 			phasing = false;
 			currentphase = 0;
 		}
