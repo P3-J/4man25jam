@@ -28,6 +28,12 @@ public partial class WorldController : Node2D
         sgbus = GetNode<SignalBus>("/root/Signalbus");
 		sgbus.Connect("StartGame", new Callable(this, nameof(StartGame)));
 		sgbus.Connect("SpawnEnemy", new Callable(this, nameof(SpawnEnemy)));
+        sgbus.Connect("SwitchToDeathScene", new Callable(this, nameof(SwitchToDeathScene)));
+
+        globals.exampleGlobal = 0;
+        globals.playerHeight = 0;
+        globals.currentLevel = 0;
+
         GD.Randomize();
     }
 
@@ -35,8 +41,18 @@ public partial class WorldController : Node2D
     {
         if (bg.IsGameStartSequence){
 			globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
+            checkStage();
 		}
-		checkStage();
+		
+    }
+
+    public void SwitchToDeathScene(){
+        AnimationPlayer anim = GetNode<AnimationPlayer>("DeathScreenSwitch/AnimationPlayer");
+        anim.Play("fadeout");
+    }
+
+    public void ChangeSceneToFail(){
+        GetTree().ChangeSceneToFile("res://src/scenes/failurescreen.tscn");
     }
 
 		
@@ -44,38 +60,36 @@ public partial class WorldController : Node2D
 		globals.player.Visible = true;
 	}
 
+    public void CheckSpawnTimer(){
+        if (spawntimer.IsStopped())
+        {
+            spawntimer.Start();
+        }
+    }
+
 
     public void checkStage()
     {
+        if (globals.currentLevel == 0)
+        {
+            spawntimer.WaitTime = 1f;
+            CheckSpawnTimer();
+            currentlySpawning = "fentplane";
+            return;
+        }
+
         if (globals.currentLevel == 1)
         {
-            spawntimer.WaitTime = 0.3f;
-            if (spawntimer.IsStopped())
-            {
-                spawntimer.Start();
-            }
-            currentlySpawning = "fentplane";
+            spawntimer.WaitTime = 2f;
+            CheckSpawnTimer();
+            currentlySpawning = "eagle";
             return;
         }
 
         if (globals.currentLevel == 2)
         {
-            spawntimer.WaitTime = 2f;
-            if (spawntimer.IsStopped())
-            {
-                spawntimer.Start();
-            }
-            currentlySpawning = "eagle";
-            return;
-        }
-
-        if (globals.currentLevel == 3)
-        {
             spawntimer.WaitTime = 1f;
-            if (spawntimer.IsStopped())
-            {
-                spawntimer.Start();
-            }
+            CheckSpawnTimer();
             currentlySpawning = "fentplane";
             return;
         }
@@ -95,7 +109,7 @@ public partial class WorldController : Node2D
 
 		bool spawnDirectionLeft = GD.Randi() % 2 == 1;
 		// true = right , false = left
-		float spawnHeight = GD.RandRange(-300, 300); // first top height,  after + bottom height = bottom + top
+		float spawnHeight = GD.RandRange(-400, 400); // first top height,  after + bottom height = bottom + top
 
 
         if (spawnDirectionLeft)

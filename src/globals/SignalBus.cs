@@ -15,8 +15,9 @@ public partial class SignalBus : Node
     public delegate void BossHitEventHandler();
     [Signal]
     public delegate void SpawnEnemyEventHandler();
-    
     [Signal]
     public delegate void StartGameEventHandler();
+    [Signal]
+    public delegate void SwitchToDeathSceneEventHandler();
 
 }

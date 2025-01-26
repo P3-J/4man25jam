@@ -22,7 +22,7 @@ public partial class Ui : Node2D
         sgbus = GetNode<SignalBus>("/root/Signalbus");
         sgbus.Connect("LevelUpSignal", new Callable(this, nameof(ProgressBarNextLevel)));
 
-        int nextLevelHeightNeeded = globals.LevelHeightNeededArr[globals.currentLevel];
+        int nextLevelHeightNeeded = globals.LevelHeightNeededArr[0];
         endHeight.Text = $"{nextLevelHeightNeeded}m";
         heightProgressBar.MaxValue = nextLevelHeightNeeded;
         heightProgressBar.MinValue = 0;

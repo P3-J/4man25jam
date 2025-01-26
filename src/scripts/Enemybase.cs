@@ -24,8 +24,6 @@ public partial class Enemybase : CharacterBody2D
     private Globals globals;
     private SignalBus sgbus;
 
-    private SpriteFrames spriteframe;
-
     private bool isPlaneFalling = false;
 
     private int planeFallChance = 150;
@@ -40,16 +38,20 @@ public partial class Enemybase : CharacterBody2D
         hittimer = GetNode<Timer>("misc/hittimer");
         sgbus.Connect("EnemyGetHit", new Callable(this, nameof(GetHit)));
 
-        SpriteFrames spriteFrame = GD.Load<SpriteFrames>(
-            $"res://src/textures/spriteframes/{enemyname}.tres"
-        );
-        enemysprite.SpriteFrames = spriteFrame;
 
         if (enemyname == "fentplane")
         {
             Speed = 200f;
+            enemysprite.Animation = "fentplane";
         }
-        ;
+
+        if (enemyname == "eagle"){
+            Speed = 200f;
+            enemysprite.Animation = "eagle";
+        }
+
+        enemysprite.Play();
+        
     }
 
     public override void _PhysicsProcess(double delta)
@@ -64,11 +66,19 @@ public partial class Enemybase : CharacterBody2D
             {
                 AudioStreamPlayer2D caaaw = GetNode<AudioStreamPlayer2D>("caaaw");
 			    caaaw.Play();
+
                 CharacterBody2D collider = (CharacterBody2D)raycast.GetCollider();
                 if (!collider.IsInGroup("player"))
                 {
                     return;
                 }
+                Speed = 250;
+                enemysprite.LookAt(globals.player.GlobalPosition);
+
+               
+                enemysprite.FlipV = globals.player.GlobalPosition.X < GlobalPosition.X;
+            
+
                 isAggro = true;
                 dir = (globals.player.GlobalPosition - GlobalPosition).Normalized();
             }
