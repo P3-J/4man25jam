@@ -104,7 +104,7 @@ public partial class WorldController : Node2D
             return;
         }
 
-		if (globals.currentLevel == 4 && !bossSpawned)
+		if (globals.currentLevel == 3 && !bossSpawned)
 		{
 			bossSpawned = true;
 			Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
