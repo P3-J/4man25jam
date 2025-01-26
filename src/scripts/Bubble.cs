@@ -6,15 +6,16 @@ public partial class Bubble : CharacterBody2D
 	[Export] public float MaxSpeed = 200f; 
 	[Export] public float Acceleration = 400f; 
 	[Export] public float Deceleration = 500f;
-	[Export] public Sprite2D bubblesprite;
+	[Export] public AnimatedSprite2D bubblesprite;
 	[Export] private Node2D aimrotater;
 	[Export] PackedScene bubbleproj;
+	[Export] AnimationPlayer animplayer;
 	private Marker2D shootStartPoint;
 	private Marker2D shootEndPoint;
 	private ProgressBar shotbar;
 	private Timer hittimer;
 
-	private int hp = 10;
+	private int hp = 1;
 
 	public float BoundsFromCenterOfScreenX = 200f;
 	public float BoundsFromCenterOfScreenY = 250f;
@@ -26,6 +27,7 @@ public partial class Bubble : CharacterBody2D
 
 	private Globals globals;
 	private SignalBus sgbus;
+	private bool canMove = true;
 	
 	private AudioStreamPlayer2D bubblePop;
 	private AudioStreamPlayer2D chargeSounds;
@@ -56,10 +58,12 @@ public partial class Bubble : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!canMove){
+			return;
+		}
+
 		Vector2 velocity = Velocity;
-
 		Vector2 direction = PlayerInput(); 
-
 		mouseDirection = GetGlobalMousePosition();
 		Vector2 mousedir = (mouseDirection - GlobalPosition).Normalized();
 		aimrotater.Rotation = mousedir.Angle();
@@ -89,7 +93,10 @@ public partial class Bubble : CharacterBody2D
 		}
 		
 	}
-
+	
+	public void SwitchToDeathScene(){
+		sgbus.EmitSignal("SwitchToDeathScene");
+	}
 
 	private void Sway(){
 		if (!swaying){
@@ -147,7 +154,15 @@ public partial class Bubble : CharacterBody2D
 	private void GetHit(int amount){
 		bubblesprite.Material.Set("shader_parameter/active", true);
 		hp -= amount;
+		CheckForDeath();
 		hittimer.Start();
+	}
+
+	private void CheckForDeath(){
+		if (hp <= 0){
+			canMove = false;
+			animplayer.Play("death");
+		}
 	}
 
 	private void _on_hittimer_timeout(){

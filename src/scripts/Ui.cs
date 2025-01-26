@@ -3,50 +3,52 @@ using Godot;
 
 public partial class Ui : Node2D
 {
-	[Export]
-	RichTextLabel startHeight;
 
-	[Export]
-	RichTextLabel endHeight;
+    [Export]
+    RichTextLabel startHeight;
 
-	[Export]
-	ProgressBar heightProgressBar;
+    [Export]
+    RichTextLabel endHeight;
 
-	Globals globals;
-	private SignalBus sgbus;
+    [Export]
+    ProgressBar heightProgressBar;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		globals = GetNode<Globals>("/root/Globals");
-		sgbus = GetNode<SignalBus>("/root/Signalbus");
-		sgbus.Connect("LevelUpSignal", new Callable(this, nameof(ProgressBarNextLevel)));
+    Globals globals;
+    private SignalBus sgbus;
 
-		int nextLevelHeightNeeded = globals.LevelHeightNeededArr[globals.currentLevel];
-		endHeight.Text = $"{nextLevelHeightNeeded}m";
-		heightProgressBar.MaxValue = nextLevelHeightNeeded;
-		heightProgressBar.MinValue = 0;
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        globals = GetNode<Globals>("/root/Globals");
+        sgbus = GetNode<SignalBus>("/root/Signalbus");
+        sgbus.Connect("LevelUpSignal", new Callable(this, nameof(ProgressBarNextLevel)));
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		startHeight.Text = $"{Math.Floor(globals.playerHeight)}m";
-		heightProgressBar.Value = globals.playerHeight;
-	}
+        int nextLevelHeightNeeded = globals.LevelHeightNeededArr[0];
+        endHeight.Text = $"{nextLevelHeightNeeded}m";
+        heightProgressBar.MaxValue = nextLevelHeightNeeded;
+        heightProgressBar.MinValue = 0;
+    }
 
-	public void ProgressBarNextLevel(int nextLevel)
-	{
-		int maxLevel = globals.LevelHeightNeededArr.Count - 1;
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        startHeight.Text = $"{Math.Floor(globals.playerHeight)}m";
+        heightProgressBar.Value = globals.playerHeight;
+    }
 
-		if (maxLevel >= nextLevel)
-		{
-			int currentLevelHeight = globals.LevelHeightNeededArr[nextLevel - 1];
-			heightProgressBar.MinValue = currentLevelHeight;
+    public void ProgressBarNextLevel(int nextLevel)
+    {
+        int maxLevel = globals.LevelHeightNeededArr.Count - 1;
 
-			int nextLevelHeightNeeded = globals.LevelHeightNeededArr[nextLevel];
-			endHeight.Text = $"{nextLevelHeightNeeded}m";
-			heightProgressBar.MaxValue = nextLevelHeightNeeded;
-		}
-	}
+        if (maxLevel >= nextLevel)
+        {
+            int currentLevelHeight = globals.LevelHeightNeededArr[nextLevel - 1];
+            heightProgressBar.MinValue = currentLevelHeight;
+
+            int nextLevelHeightNeeded = globals.LevelHeightNeededArr[nextLevel];
+            endHeight.Text = $"{nextLevelHeightNeeded}m";
+            heightProgressBar.MaxValue = nextLevelHeightNeeded;
+        }
+    }
+
 }

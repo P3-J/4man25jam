@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://vf7dkbvy36iv"]
+
+[ext_resource type="Script" path="res://src/scripts/Failurescreen.cs" id="1_b664r"]
+
+[node name="failurescreen" type="Node2D"]
+script = ExtResource("1_b664r")
+
+[node name="retry" type="Button" parent="."]
+offset_left = 128.0
+offset_top = 576.0
+offset_right = 320.0
+offset_bottom = 632.0
+text = "Retry"
+
+[node name="exit" type="Button" parent="."]
+offset_left = 512.0
+offset_top = 576.0
+offset_right = 704.0
+offset_bottom = 632.0
+text = "Exit"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 144.0
+offset_top = 312.0
+offset_right = 712.0
+offset_bottom = 405.0
+theme_override_font_sizes/font_size = 32
+text = "You failed your glorious nation........."
+
+[connection signal="pressed" from="retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]

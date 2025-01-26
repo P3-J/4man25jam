@@ -1,19 +1,97 @@
-[gd_scene load_steps=14 format=3 uid="uid://du3eoicf0hcow"]
+[gd_scene load_steps=28 format=3 uid="uid://du3eoicf0hcow"]
 
 [ext_resource type="Script" path="res://src/scripts/Bubble.cs" id="1_23kea"]
 [ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_v1hjq"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="3_admt3"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_pv3m6"]
-[ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="4_fhttg"]
+[ext_resource type="Texture2D" uid="uid://dfy2rbxvxldrv" path="res://src/textures/bubbapop..png" id="4_ac4fs"]
 [ext_resource type="Texture2D" uid="uid://cooj82ciuohkf" path="res://src/textures/shotbar.png" id="5_c4k31"]
 [ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="5_t7p2u"]
 [ext_resource type="AudioStream" uid="uid://c2q58jj7j8jqy" path="res://src/muss/heli/bubblePop.wav" id="8_u8q01"]
 [ext_resource type="AudioStream" uid="uid://cbg1qs7mlbdul" path="res://src/muss/heli/chargeSounds.mp3" id="9_gaut3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sknfw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7eyd"]
 shader = ExtResource("3_pv3m6")
 shader_parameter/active = false
-shader_parameter/tint = Color(0.952941, 0.0196078, 0, 1)
+shader_parameter/tint = Color(0.781524, 0.0434156, 0.0240801, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al82l"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(0, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1oj3"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(820, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eji06"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(1640, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wduw"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(2460, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jibj7"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(3280, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3oxwn"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(4100, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvvrd"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(4920, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2jwx"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(5740, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tia8"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(6560, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8rx4"]
+atlas = ExtResource("4_ac4fs")
+region = Rect2(7380, 0, 820, 820)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1my5y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al82l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1oj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eji06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wduw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jibj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3oxwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvvrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2jwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tia8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8rx4")
+}],
+"loop": false,
+"name": &"deathseq",
+"speed": 15.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xafi"]
 radius = 64.0
@@ -24,23 +102,114 @@ texture = ExtResource("5_c4k31")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cu1yy"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Bubble" type="CharacterBody2D" node_paths=PackedStringArray("bubblesprite", "aimrotater") groups=["player"]]
+[sub_resource type="Animation" id="Animation_wn3ef"]
+resource_name = "death"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bubblesprite2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"deathseq", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bubblesprite2/sateliit:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-8.66009, 320.352), Vector2(-9.53674e-07, 2803.51)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bubblesprite2/sateliit:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 5.63916]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"SwitchToDeathScene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_630vc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bubblesprite2/sateliit:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8.66009, 320.352)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bubblesprite2/sateliit:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8t5tp"]
+_data = {
+"RESET": SubResource("Animation_630vc"),
+"death": SubResource("Animation_wn3ef")
+}
+
+[node name="Bubble" type="CharacterBody2D" node_paths=PackedStringArray("bubblesprite", "aimrotater", "animplayer") groups=["player"]]
 scale = Vector2(0.65, 0.65)
 script = ExtResource("1_23kea")
-bubblesprite = NodePath("bubblesprite")
+bubblesprite = NodePath("bubblesprite2")
 aimrotater = NodePath("aimcircle")
 bubbleproj = ExtResource("2_v1hjq")
+animplayer = NodePath("AnimationPlayer")
 
-[node name="bubblesprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_sknfw")
-position = Vector2(0, -42.6667)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_fhttg")
+[node name="bubblesprite2" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_r7eyd")
+position = Vector2(0, -43.0769)
+scale = Vector2(0.307927, 0.305113)
+sprite_frames = SubResource("SpriteFrames_1my5y")
+animation = &"deathseq"
 
-[node name="sateliit" type="Sprite2D" parent="bubblesprite"]
+[node name="sateliit" type="Sprite2D" parent="bubblesprite2"]
 z_index = -1
-position = Vector2(-10.6667, 389.333)
-scale = Vector2(4, 4)
+position = Vector2(-8.66009, 320.352)
+scale = Vector2(3.24752, 3.27748)
 texture = ExtResource("5_t7p2u")
 
 [node name="bubblecollision" type="CollisionShape2D" parent="."]
@@ -93,5 +262,10 @@ volume_db = 19.048
 [node name="chargeSounds" type="AudioStreamPlayer2D" parent="bubbleSound"]
 stream = ExtResource("9_gaut3")
 volume_db = 13.105
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8t5tp")
+}
 
 [connection signal="timeout" from="misc/hittimer" to="." method="_on_hittimer_timeout"]

@@ -1,14 +1,75 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1etyke707vnw"]
+[gd_scene load_steps=16 format=3 uid="uid://c1etyke707vnw"]
 
 [ext_resource type="Script" path="res://src/scripts/Enemybase.cs" id="1_0bo2d"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="2_dvulp"]
+[ext_resource type="Texture2D" uid="uid://dd0shqr83ljtv" path="res://src/textures/baldeaglespritesheet.png" id="3_5i1an"]
+[ext_resource type="Texture2D" uid="uid://cpl7bhbc1pbe3" path="res://src/textures/pics/fentplane/fentplane1.png" id="4_ngtt6"]
 [ext_resource type="AudioStream" uid="uid://cmbosjmf3bnyd" path="res://src/muss/heli/caaaw.mp3" id="4_vgl5q"]
+[ext_resource type="Texture2D" uid="uid://fhmxulos8ovn" path="res://src/textures/pics/fentplane/fentplane2.png" id="5_m3vn5"]
+[ext_resource type="Texture2D" uid="uid://cuxhtfqwt46o0" path="res://src/textures/pics/fentplane/fentplane3.png" id="6_ofm7k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2wj8"]
 resource_local_to_scene = true
 shader = ExtResource("2_dvulp")
 shader_parameter/active = false
 shader_parameter/tint = Color(1, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8525"]
+atlas = ExtResource("3_5i1an")
+region = Rect2(0, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t7p0"]
+atlas = ExtResource("3_5i1an")
+region = Rect2(820, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_415k8"]
+atlas = ExtResource("3_5i1an")
+region = Rect2(1640, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwmb3"]
+atlas = ExtResource("3_5i1an")
+region = Rect2(2460, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blblg"]
+atlas = ExtResource("3_5i1an")
+region = Rect2(3280, 0, 820, 820)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y4j55"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8525")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8t7p0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_415k8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwmb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blblg")
+}],
+"loop": true,
+"name": &"eagle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ngtt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_m3vn5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ofm7k")
+}],
+"loop": true,
+"name": &"fentplane",
+"speed": 10.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hlhd"]
 size = Vector2(64, 32)
@@ -23,7 +84,9 @@ hitbox = NodePath("Area2D")
 material = SubResource("ShaderMaterial_h2wj8")
 position = Vector2(-4.76837e-07, -2.38419e-06)
 scale = Vector2(0.117073, 0.117073)
-autoplay = "default"
+sprite_frames = SubResource("SpriteFrames_y4j55")
+animation = &"fentplane"
+frame_progress = 0.739853
 
 [node name="Area2D" type="Area2D" parent="." groups=["enemy"]]
 
@@ -33,7 +96,7 @@ shape = SubResource("RectangleShape2D_1hlhd")
 [node name="raycastparent" type="Node2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="raycastparent"]
-target_position = Vector2(0, -192)
+target_position = Vector2(0, -200)
 
 [node name="misc" type="Node" parent="."]
 
