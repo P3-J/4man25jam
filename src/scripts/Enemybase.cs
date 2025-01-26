@@ -14,12 +14,14 @@ public partial class Enemybase : CharacterBody2D
 
     [Export]
     AnimatedSprite2D enemysprite;
-
     [Export]
     Node2D raycastparent;
-
     [Export]
     Area2D hitbox;
+    [Export] PackedScene bubbleproj; 
+    [Export] Timer shottimer;
+    [Export] Sprite2D aimthing;
+    [Export] Marker2D aimspot;
     private RayCast2D raycast;
     private Timer hittimer;
     private Globals globals;
@@ -49,6 +51,12 @@ public partial class Enemybase : CharacterBody2D
         if (enemyname == "eagle"){
             Speed = 200f;
             enemysprite.Animation = "eagle";
+        }
+
+        if (enemyname == "jet"){
+            Speed = 100f;
+            enemysprite.Animation = "jet";
+            aimthing.Visible = true;
         }
 
         enemysprite.Play();
@@ -103,6 +111,15 @@ public partial class Enemybase : CharacterBody2D
             }
         }
 
+        if (enemyname == "jet"){
+
+            raycastparent.Rotation += 0.01f;
+
+            if (shottimer.IsStopped()){
+                shottimer.Start();
+            }
+        }
+
         CheckIfOutOfBounds();
 
         Vector2 direction = dir;
@@ -119,6 +136,10 @@ public partial class Enemybase : CharacterBody2D
 
         Velocity = velocity;
         MoveAndSlide();
+    }
+
+    private void _on_shottimer_timeout(){
+        CreateBubble(aimspot.GlobalPosition);
     }
 
     private void GetHit(Node2D body, int amount, Area2D bubbleproj)
@@ -148,6 +169,18 @@ public partial class Enemybase : CharacterBody2D
     {
         enemysprite.Material.Set("shader_parameter/active", false);
     }
+
+
+    private void CreateBubble(Vector2 AimPos)
+	{
+		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
+		crntBubble.ZIndex = 0;
+		crntBubble.enemyowner = true;
+		crntBubble.dir = (AimPos - Position).Normalized();
+        crntBubble.Scale = new Vector2(0.25f, 0.25f);
+		GetTree().CurrentScene.AddChild(crntBubble);
+		crntBubble.GlobalPosition = GlobalPosition;
+	}
 
 
     private void CheckIfOutOfBounds()

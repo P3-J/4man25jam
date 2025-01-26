@@ -1,17 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://1d3ihxw47ja4"]
+[gd_scene load_steps=21 format=3 uid="uid://1d3ihxw47ja4"]
 
 [ext_resource type="Script" path="res://src/scripts/Bossscenemanager.cs" id="1_51xgi"]
 [ext_resource type="Script" path="res://src/scripts/Boss.cs" id="1_ix0yk"]
-[ext_resource type="Texture2D" uid="uid://bkvgkfrkmmffm" path="res://src/textures/bossman.png" id="1_tibi2"]
 [ext_resource type="PackedScene" uid="uid://bbgyeo2fdyp7q" path="res://src/scenes/bubbleprojectile.tscn" id="2_jtyd7"]
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="3_6yytb"]
 [ext_resource type="Texture2D" uid="uid://cgf32d4ncbg3g" path="res://icon.svg" id="5_5d8et"]
+[ext_resource type="Texture2D" uid="uid://bq7je1sg8e6an" path="res://src/textures/satellitebossspritesheet.png" id="7_erair"]
 [ext_resource type="AudioStream" uid="uid://b0co854p37noo" path="res://src/muss/boss1.mp3" id="7_gme0h"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bt1fd"]
-shader = ExtResource("3_6yytb")
-shader_parameter/active = false
-shader_parameter/tint = Color(1, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynx36"]
 size = Vector2(224, 37)
@@ -244,6 +239,46 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqjsp"]
 size = Vector2(120, 120)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kli5d"]
+shader = ExtResource("3_6yytb")
+shader_parameter/active = false
+shader_parameter/tint = Color(0.863216, 0.0568002, 0.0327537, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7a3l"]
+atlas = ExtResource("7_erair")
+region = Rect2(0, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjdjn"]
+atlas = ExtResource("7_erair")
+region = Rect2(820, 0, 820, 820)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r6tl"]
+atlas = ExtResource("7_erair")
+region = Rect2(1640, 0, 820, 820)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_plgrw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7a3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjdjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r6tl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bl3di"]
+bg_color = Color(0.6, 0.6, 0.6, 0.42)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ww1te"]
+bg_color = Color(0.743481, 0, 0.115561, 1)
+
 [node name="bosscene" type="Node2D" node_paths=PackedStringArray("boss", "bosshpbar", "animplayer", "spot1", "spot2", "spot3", "spot4", "spot5", "startspot", "phase2timer", "hittimer")]
 script = ExtResource("1_51xgi")
 boss = NodePath("boss")
@@ -262,13 +297,6 @@ hittimer = NodePath("boss/hittimer")
 [node name="boss" type="Area2D" parent="." groups=["boss"]]
 position = Vector2(0, -300)
 script = ExtResource("1_ix0yk")
-
-[node name="Sprite2D" type="Sprite2D" parent="boss"]
-material = SubResource("ShaderMaterial_bt1fd")
-position = Vector2(1.45676, -17.4568)
-rotation = 0.523598
-scale = Vector2(1, 1.0161)
-texture = ExtResource("1_tibi2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boss" groups=["boss"]]
 position = Vector2(1.19209e-07, 2.5)
@@ -304,12 +332,30 @@ texture = ExtResource("5_5d8et")
 wait_time = 2.0
 one_shot = true
 
+[node name="bosssprite" type="AnimatedSprite2D" parent="boss"]
+material = SubResource("ShaderMaterial_kli5d")
+position = Vector2(6, 3)
+rotation = 0.261799
+scale = Vector2(0.393746, 0.262442)
+sprite_frames = SubResource("SpriteFrames_plgrw")
+frame_progress = 0.730246
+
 [node name="bossprogressbar" type="ProgressBar" parent="."]
 offset_left = -320.0
 offset_top = 336.0
 offset_right = 320.0
 offset_bottom = 368.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bl3di")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ww1te")
 max_value = 10.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="bossprogressbar"]
+layout_mode = 0
+offset_left = 248.0
+offset_right = 387.0
+offset_bottom = 32.0
+text = "STARMECHALINK"
 
 [node name="aimspots" type="Node2D" parent="."]
 

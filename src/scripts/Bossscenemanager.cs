@@ -16,7 +16,7 @@ public partial class Bossscenemanager : Node2D
 	[Export] PackedScene bubbleproj;
 	[Export] Timer phase2timer;
 
-	private Sprite2D bosssprite;
+	private AnimatedSprite2D bosssprite;
 	public int bosshp = 10;
 	public SignalBus sgbus;
 	[Export] Timer hittimer;
@@ -28,7 +28,7 @@ public partial class Bossscenemanager : Node2D
 		sgbus = GetNode<SignalBus>("/root/Signalbus");
 		bosshpbar.Value = bosshp;
 		sgbus.Connect("BossHit", new Callable(this, nameof(GetHit)));
-		bosssprite = boss.GetNode<Sprite2D>("Sprite2D");
+		bosssprite = boss.GetNode<AnimatedSprite2D>("bosssprite");
 	}
 
 
