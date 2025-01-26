@@ -54,7 +54,7 @@ public partial class Enemybase : CharacterBody2D
 		}
 
         if (enemyname == "jet"){
-            Speed = 250f;
+            Speed = 300f;
             Scale = new Vector2(1.25f, 1.25f);
             enemysprite.Animation = "jet";
         }
@@ -112,7 +112,7 @@ public partial class Enemybase : CharacterBody2D
 
 		if (enemyname == "jet"){
 
-			raycastparent.Rotation += 0.01f;
+			raycastparent.Rotation += 0.1f;
 
 			if (shottimer.IsStopped()){
 				shottimer.Start();
