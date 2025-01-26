@@ -32,9 +32,9 @@ public partial class Bossscenemanager : Node2D
 	}
 
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
 
 		if (!boss.started){
 			return;
@@ -45,12 +45,12 @@ public partial class Bossscenemanager : Node2D
 		}
 		
 
-    }
+	}
 
-    private void DoPhase()
-    {
+	private void DoPhase()
+	{
 		phasing = true;
-        if (currentphase == 0){
+		if (currentphase == 0){
 			animplayer.Play("new_animation");
 			return;
 		}
@@ -81,7 +81,7 @@ public partial class Bossscenemanager : Node2D
 			phasing = false;
 			currentphase = 0;
 		}
-    }
+	}
 
 	public void NotPhasing(){
 		phasing = false;
@@ -105,7 +105,7 @@ public partial class Bossscenemanager : Node2D
 	}
 
 
-    public void GetHit(int damage){
+	public void GetHit(int damage){
 		bosshp -= damage;
 		bosshpbar.Value = bosshp;
 		hittimer.Start();
