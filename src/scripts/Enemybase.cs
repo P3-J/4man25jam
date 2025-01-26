@@ -12,18 +12,20 @@ public partial class Enemybase : CharacterBody2D
 
 	public string enemyname = "";
 
-	[Export]
-	AnimatedSprite2D enemysprite;
-
-	[Export]
-	Node2D raycastparent;
-
-	[Export]
-	Area2D hitbox;
-	private RayCast2D raycast;
-	private Timer hittimer;
-	private Globals globals;
-	private SignalBus sgbus;
+    [Export]
+    AnimatedSprite2D enemysprite;
+    [Export]
+    Node2D raycastparent;
+    [Export]
+    Area2D hitbox;
+    [Export] PackedScene bubbleproj; 
+    [Export] Timer shottimer;
+    [Export] Sprite2D aimthing;
+    [Export] Marker2D aimspot;
+    private RayCast2D raycast;
+    private Timer hittimer;
+    private Globals globals;
+    private SignalBus sgbus;
 
 	private bool isPlaneFalling = false;
 
@@ -51,9 +53,15 @@ public partial class Enemybase : CharacterBody2D
 			enemysprite.Animation = "eagle";
 		}
 
-		enemysprite.Play();
-		
-	}
+        if (enemyname == "jet"){
+            Speed = 100f;
+            enemysprite.Animation = "jet";
+            aimthing.Visible = true;
+        }
+
+        enemysprite.Play();
+        
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -103,7 +111,16 @@ public partial class Enemybase : CharacterBody2D
 			}
 		}
 
-		CheckIfOutOfBounds();
+        if (enemyname == "jet"){
+
+            raycastparent.Rotation += 0.01f;
+
+            if (shottimer.IsStopped()){
+                shottimer.Start();
+            }
+        }
+
+        CheckIfOutOfBounds();
 
 		Vector2 direction = dir;
 		if (direction != Vector2.Zero)
@@ -121,14 +138,18 @@ public partial class Enemybase : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	private void GetHit(Node2D body, int amount, Area2D bubbleproj)
-	{
-		if ((Area2D)body != hitbox)
-		{
-			return;
-		}
-		enemysprite.Material.Set("shader_parameter/active", true);
-		HP -= amount;
+    private void _on_shottimer_timeout(){
+        CreateBubble(aimspot.GlobalPosition);
+    }
+
+    private void GetHit(Node2D body, int amount, Area2D bubbleproj)
+    {
+        if ((Area2D)body != hitbox)
+        {
+            return;
+        }
+        enemysprite.Material.Set("shader_parameter/active", true);
+        HP -= amount;
 
 		CheckHp();
 
@@ -150,18 +171,30 @@ public partial class Enemybase : CharacterBody2D
 	}
 
 
-	private void CheckIfOutOfBounds()
+    private void CreateBubble(Vector2 AimPos)
 	{
-		if (
-			GlobalPosition.X > 2000
-			|| GlobalPosition.X < -2000
-			|| GlobalPosition.Y > 2000
-			|| GlobalPosition.Y < -2000
-		)
-		{
-			QueueFree();
-		}
+		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
+		crntBubble.ZIndex = 0;
+		crntBubble.enemyowner = true;
+		crntBubble.dir = (AimPos - Position).Normalized();
+        crntBubble.Scale = new Vector2(0.25f, 0.25f);
+		GetTree().CurrentScene.AddChild(crntBubble);
+		crntBubble.GlobalPosition = GlobalPosition;
 	}
+
+
+    private void CheckIfOutOfBounds()
+    {
+        if (
+            GlobalPosition.X > 2000
+            || GlobalPosition.X < -2000
+            || GlobalPosition.Y > 2000
+            || GlobalPosition.Y < -2000
+        )
+        {
+            QueueFree();
+        }
+    }
 
 	private void _on_area_2d_body_entered(Node2D body)
 	{

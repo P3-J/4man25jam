@@ -96,15 +96,15 @@ public partial class WorldController : Node2D
 			return;
 		}
 
-		if (globals.currentLevel == 2)
-		{
-			spawntimer.WaitTime = 1f;
-			CheckSpawnTimer();
-			currentlySpawning = "fentplane";
-			return;
-		}
+        if (globals.currentLevel == 2)
+        {
+            spawntimer.WaitTime = 1f;
+            CheckSpawnTimer();
+            currentlySpawning = "jet";
+            return;
+        }
 
-		if (globals.currentLevel == 4 && !bossSpawned)
+		if (globals.currentLevel == 3 && !bossSpawned)
 		{
 			bossSpawned = true;
 			Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
@@ -121,7 +121,7 @@ public partial class WorldController : Node2D
 
 		bool spawnDirectionLeft = GD.Randi() % 2 == 1;
 		// true = right , false = left
-		float spawnHeight = GD.RandRange(-400, 400); // first top height,  after + bottom height = bottom + top
+		float spawnHeight = GD.RandRange(-300, 300); // first top height,  after + bottom height = bottom + top
 
 
 		if (spawnDirectionLeft)
@@ -129,7 +129,10 @@ public partial class WorldController : Node2D
 			enemy.GlobalPosition = new Vector2(1000, spawnHeight);
 			enemy.enemyname = enemytype;
 			GetTree().CurrentScene.AddChild(enemy);
-			enemy.Fliphorizontal();
+
+			if (enemytype != "jet"){
+				enemy.Fliphorizontal();
+			}
 			enemy.dir = new Vector2(-1, 0);
 		}
 		else
