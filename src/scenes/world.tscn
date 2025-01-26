@@ -111,10 +111,10 @@ visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="laul2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_65prq")
 autoplay = true
-parameters/looping = false
+parameters/looping = true
 
 [node name="misc" type="Node" parent="."]
 

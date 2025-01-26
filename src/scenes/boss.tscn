@@ -378,7 +378,8 @@ position = Vector2(-4, 368)
 position = Vector2(6, -276)
 
 [node name="boss1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_gme0h")
+stream = ExtResource("7_0r6du")
+volume_db = 16.837
 autoplay = true
 
 [connection signal="timeout" from="boss/hittimer" to="." method="_on_hittimer_timeout"]
