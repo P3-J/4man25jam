@@ -9,7 +9,7 @@
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="8_o2tf6"]
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="9_qp70t"]
 [ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="10_cmeac"]
-[ext_resource type="PackedScene" uid="uid://bf8osow65f2n5" path="res://src/scenes/cloud_parallax.tscn" id="10_ykeh2"]
+[ext_resource type="PackedScene" path="res://src/scenes/cloud_parallax.tscn" id="10_ykeh2"]
 [ext_resource type="Texture2D" uid="uid://ca11pkb0ew1ae" path="res://src/textures/stars.png" id="11_haksu"]
 
 [sub_resource type="Animation" id="Animation_0w4uc"]
