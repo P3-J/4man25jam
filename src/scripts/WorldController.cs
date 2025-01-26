@@ -96,13 +96,13 @@ public partial class WorldController : Node2D
 			return;
 		}
 
-        if (globals.currentLevel == 2)
-        {
-            spawntimer.WaitTime = 1f;
-            CheckSpawnTimer();
-            currentlySpawning = "jet";
-            return;
-        }
+		if (globals.currentLevel == 2)
+		{
+			spawntimer.WaitTime = 1f;
+			CheckSpawnTimer();
+			currentlySpawning = "jet";
+			return;
+		}
 
 		if (globals.currentLevel == 3 && !bossSpawned)
 		{
