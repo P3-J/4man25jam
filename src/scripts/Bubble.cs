@@ -15,7 +15,7 @@ public partial class Bubble : CharacterBody2D
 	private ProgressBar shotbar;
 	private Timer hittimer;
 
-	private int hp = 3;
+	private int hp = 5;
 
 	public float BoundsFromCenterOfScreenX = 200f;
 	public float BoundsFromCenterOfScreenY = 250f;
@@ -146,6 +146,7 @@ public partial class Bubble : CharacterBody2D
 		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
 		crntBubble.canScale = true;
 		currentProj = crntBubble;
+		crntBubble.speed = 350;
 		shootStartPoint.AddChild(crntBubble);
 		crntBubble.ZIndex = 1;
 		crntBubble.GlobalPosition = shootStartPoint.GlobalPosition;

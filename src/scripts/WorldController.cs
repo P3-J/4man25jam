@@ -99,7 +99,7 @@ public partial class WorldController : Node2D
         if (globals.currentLevel == 2)
         {
 			GD.Print("reached 2");
-            spawntimer.WaitTime = 3f;
+            spawntimer.WaitTime = 2f;
             CheckSpawnTimer();
             currentlySpawning = "jet";
             return;
