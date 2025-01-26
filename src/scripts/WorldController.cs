@@ -98,7 +98,7 @@ public partial class WorldController : Node2D
 
         if (globals.currentLevel == 2)
         {
-            spawntimer.WaitTime = 1f;
+            spawntimer.WaitTime = 3f;
             CheckSpawnTimer();
             currentlySpawning = "jet";
             return;
@@ -131,7 +131,7 @@ public partial class WorldController : Node2D
 			GetTree().CurrentScene.AddChild(enemy);
 
 			if (enemytype != "jet"){
-				enemy.Fliphorizontal();
+				enemy.Fliphorizontal();	
 			}
 			enemy.dir = new Vector2(-1, 0);
 		}
@@ -141,6 +141,9 @@ public partial class WorldController : Node2D
 			enemy.enemyname = enemytype;
 			GetTree().CurrentScene.AddChild(enemy);
 			enemy.dir = new Vector2(+1, 0);
+			if (enemytype == "jet"){
+				enemy.Fliphorizontal();	
+			}
 		}
 	}
 

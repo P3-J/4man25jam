@@ -15,7 +15,7 @@ public partial class Bubble : CharacterBody2D
 	private ProgressBar shotbar;
 	private Timer hittimer;
 
-	private int hp = 1;
+	private int hp = 3;
 
 	public float BoundsFromCenterOfScreenX = 200f;
 	public float BoundsFromCenterOfScreenY = 250f;
@@ -89,7 +89,7 @@ public partial class Bubble : CharacterBody2D
 
 	private void ChargeBar(){
 		if (chargingBubbleGun){
-			shotbar.Value += 1.5;
+			shotbar.Value += 2;
 		}
 		
 	}
@@ -144,6 +144,7 @@ public partial class Bubble : CharacterBody2D
 	{
 		currentProj = null;
 		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
+		crntBubble.canScale = true;
 		currentProj = crntBubble;
 		shootStartPoint.AddChild(crntBubble);
 		crntBubble.ZIndex = 1;

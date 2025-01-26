@@ -7,6 +7,7 @@ public partial class Bubbleprojectile : Area2D
 	public float speed = 300;
 	public int damage = 1;
 	public bool canMove = false;
+	public bool canScale = false;
 
 	public bool enemyowner = false;
 	
@@ -20,7 +21,7 @@ public partial class Bubbleprojectile : Area2D
 
 	public override void _Process(double delta)
 	{
-		if (!canMove) {
+		if (!canMove && canScale) {
 			if (Scale.X < 2f){
 				Vector2 newscale = Scale;
 				newscale.X += 0.03f;

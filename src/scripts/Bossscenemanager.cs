@@ -99,6 +99,7 @@ public partial class Bossscenemanager : Node2D
 		Bubbleprojectile crntBubble = (Bubbleprojectile)bubbleproj.Instantiate();
 		crntBubble.ZIndex = 0;
 		crntBubble.enemyowner = true;
+		crntBubble.canScale = true;
 		crntBubble.dir = (endMarker.GlobalPosition - startspot.GlobalPosition).Normalized();
 		GetTree().CurrentScene.AddChild(crntBubble);
 		crntBubble.GlobalPosition = startspot.GlobalPosition;
