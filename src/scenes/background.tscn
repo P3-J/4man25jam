@@ -1,7 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://dgsbjmxdvo46q"]
+[gd_scene load_steps=25 format=3 uid="uid://dgsbjmxdvo46q"]
 
 [ext_resource type="Script" path="res://src/scripts/Background.cs" id="1_7hp6s"]
-[ext_resource type="PackedScene" path="res://src/scenes/cloud_parallax.tscn" id="2_7w26e"]
 [ext_resource type="Texture2D" uid="uid://cscksxsn74vix" path="res://src/textures/background/vertical/vertical1.png" id="2_ubufb"]
 [ext_resource type="Texture2D" uid="uid://ba3yfdiyw8ug3" path="res://src/textures/gradient.png" id="3_jflup"]
 [ext_resource type="Texture2D" uid="uid://cw18m0geh4rnf" path="res://src/textures/background/startbackground.png" id="5_2hlpe"]
@@ -10,6 +9,8 @@
 [ext_resource type="Shader" path="res://src/shaders/bubble.gdshader" id="8_o2tf6"]
 [ext_resource type="Texture2D" uid="uid://bqiccincartt8" path="res://src/textures/realbubble.png" id="9_qp70t"]
 [ext_resource type="Texture2D" uid="uid://1g240281cweb" path="res://src/textures/sateliit.png" id="10_cmeac"]
+[ext_resource type="PackedScene" uid="uid://bf8osow65f2n5" path="res://src/scenes/cloud_parallax.tscn" id="10_ykeh2"]
+[ext_resource type="Texture2D" uid="uid://ca11pkb0ew1ae" path="res://src/textures/stars.png" id="11_haksu"]
 
 [sub_resource type="Animation" id="Animation_0w4uc"]
 length = 0.001
@@ -299,14 +300,15 @@ shader = ExtResource("8_o2tf6")
 shader_parameter/active = false
 shader_parameter/tint = Color(0.952941, 0.0196078, 0, 1)
 
-[node name="Background" type="Node2D" node_paths=PackedStringArray("backgroundGradient", "startBackground", "verticalBackground", "verticalBackgroundSprite")]
+[node name="Background" type="Node2D" node_paths=PackedStringArray("fogParallax", "backgroundGradient", "startBackground", "verticalBackground", "cloudParallax", "starsParallax")]
 position = Vector2(-13, 0)
 script = ExtResource("1_7hp6s")
+fogParallax = NodePath("FogParallax")
 backgroundGradient = NodePath("BackgroundGradient")
 startBackground = NodePath("StartBackground")
 verticalBackground = NodePath("VerticalBackground")
-verticalBackgroundSprite = NodePath("VerticalBackground/Sprite2D")
-cloudScene = ExtResource("2_7w26e")
+cloudParallax = NodePath("CloudParallax")
+starsParallax = NodePath("StarsParallax")
 
 [node name="VerticalBackground" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0, 0)
@@ -320,12 +322,12 @@ position = Vector2(423, 51)
 texture = ExtResource("2_ubufb")
 
 [node name="BackgroundGradient" type="Sprite2D" parent="."]
-position = Vector2(427, -481)
+position = Vector2(423, -547)
 texture = ExtResource("3_jflup")
 
 [node name="StartBackground" type="Sprite2D" parent="."]
 z_index = 2
-position = Vector2(420, 423)
+position = Vector2(422, 393)
 scale = Vector2(0.997561, 1.03659)
 texture = ExtResource("5_2hlpe")
 
@@ -368,3 +370,18 @@ z_index = -1
 position = Vector2(-10.6667, 389.333)
 scale = Vector2(4, 4)
 texture = ExtResource("10_cmeac")
+
+[node name="CloudParallax" parent="." instance=ExtResource("10_ykeh2")]
+visible = false
+autoscroll = Vector2(150, 0)
+
+[node name="StarsParallax" type="Parallax2D" parent="."]
+visible = false
+repeat_size = Vector2(0, 820)
+autoscroll = Vector2(0, 50)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StarsParallax"]
+position = Vector2(421, 409)
+scale = Vector2(3.18359, 3.64732)
+texture = ExtResource("11_haksu")
