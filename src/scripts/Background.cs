@@ -1,112 +1,141 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class Background : Node2D
 {
-	Sprite2D BackgroundGradient;
-	bool GradientIsMoving;
+    Sprite2D BackgroundGradient;
+    bool GradientIsMoving;
 
-	public bool IsGameStartSequence;
+    public bool IsGameStartSequence;
 
-	float GradientTargetY;
+    float GradientTargetY;
 
-	bool IsBackgroundTransparentTransition;
+    bool IsBackgroundTransparentTransition;
 
-	const float gameStartTransitionPixelHeight = 640f;
+    [Export]
+    Parallax2D fogParallax;
 
-	const double stepsNeeded = gameStartTransitionPixelHeight / transitionStepSize;
+    const float gameStartTransitionPixelHeight = 640f;
 
-	const float transitionStepSize = 3f;
-	private bool realgamestart = false;
+    const double stepsNeeded = gameStartTransitionPixelHeight / transitionStepSize;
 
-	int stepsDone = 0;
+    const float transitionStepSize = 3f;
+    private bool realgamestart = false;
 
-	[Export]
-	Sprite2D backgroundGradient;
+    int stepsDone = 0;
 
-	[Export]
-	Sprite2D startBackground;
+    [Export]
+    Sprite2D backgroundGradient;
 
-	[Export]
-	Parallax2D verticalBackground;
+    [Export]
+    Sprite2D startBackground;
 
-	[Export]
-	Sprite2D verticalBackgroundSprite;
+    [Export]
+    Parallax2D verticalBackground;
 
-	[Export]
-	PackedScene cloudScene;
+    [Export]
+    Parallax2D cloudParallax;
 
-	SignalBus sgbus;
+    [Export]
+    Parallax2D starsParallax;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		sgbus = GetNode<SignalBus>("/root/Signalbus");
-		// NEEDS TO BE CHANGED, SHOULD ONLY CALL ON FIRST LEVELUP
-		sgbus.Connect("LevelUpSignal", new Callable(this, nameof(ModulateBackground)));
-		// can trigger a start message with a timer here?
-	}
+    SignalBus sgbus;
 
-	public void StartGame(){
-		IsGameStartSequence = true;
-		sgbus.EmitSignal("StartGame");
-	}
+    List<Parallax2D> transitionParallaxList;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if (IsGameStartSequence && !realgamestart)
-		{
-			verticalBackground.Autoscroll = new Vector2(0, 200);
-			stepsDone++;
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        sgbus = GetNode<SignalBus>("/root/Signalbus");
+        // NEEDS TO BE CHANGED, SHOULD ONLY CALL ON FIRST LEVELUP
+        sgbus.Connect("LevelUpSignal", new Callable(this, nameof(ModulateBackground)));
+        sgbus.Connect("LevelUpSignal", new Callable(this, nameof(TransitionBackgroundGradient)));
+        // can trigger a start message with a timer here?
+    }
 
-			float startBackgroundNewY = startBackground.Position.Y + transitionStepSize;
+    public void StartGame()
+    {
+        IsGameStartSequence = true;
+        sgbus.EmitSignal("StartGame");
+    }
 
-			startBackground.Position = new Vector2(startBackground.Position.X, startBackgroundNewY);
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        if (IsGameStartSequence && !realgamestart)
+        {
+            verticalBackground.Autoscroll = new Vector2(0, 200);
+            stepsDone++;
 
-			if (stepsDone >= stepsNeeded)
-			{
-				startBackground.QueueFree();
-				Node cloudSceneNode = cloudScene.Instantiate();
-				AddChild(cloudSceneNode);
-				realgamestart = true;
-			}
-		} 
+            float startBackgroundNewY = startBackground.Position.Y + transitionStepSize;
 
-		if (GradientIsMoving)
-		{
-			float gradientNewY = backgroundGradient.Position.Y + 3f;
+            startBackground.Position = new Vector2(startBackground.Position.X, startBackgroundNewY);
 
-			backgroundGradient.Position = new Vector2(backgroundGradient.Position.X, gradientNewY);
+            if (stepsDone >= stepsNeeded)
+            {
+                startBackground.QueueFree();
+                cloudParallax.Visible = true;
+                realgamestart = true;
+            }
+        }
 
-			GradientIsMoving = gradientNewY < GradientTargetY;
-		}
+        if (GradientIsMoving)
+        {
+            float gradientNewY = backgroundGradient.Position.Y + 3f;
 
-		if (IsBackgroundTransparentTransition)
-		{
-			float newAlpha = verticalBackgroundSprite.Modulate.A - 0.01f;
+            backgroundGradient.Position = new Vector2(backgroundGradient.Position.X, gradientNewY);
 
-			verticalBackgroundSprite.Modulate = new Color(1, 1, 1, newAlpha);
+            GradientIsMoving = gradientNewY < GradientTargetY;
+        }
 
-			if (newAlpha == 0f)
-			{
-				IsBackgroundTransparentTransition = false;
-				verticalBackgroundSprite.QueueFree();
-			}
-		}
-	}
+        if (IsBackgroundTransparentTransition)
+        {
+            foreach (Parallax2D sprite in transitionParallaxList)
+            {
+                float newAlpha = sprite.Modulate.A - 0.01f;
 
-	public void TransitionBackgroundGradient(float pixelChange)
-	{
-		GradientTargetY = backgroundGradient.Position.Y + pixelChange;
-		GradientIsMoving = true;
-	}
+                sprite.Modulate = new Color(1, 1, 1, newAlpha);
 
-	public void ModulateBackground(int nextLevel)
-	{
-		if (nextLevel == 1)
-		{
-			IsBackgroundTransparentTransition = true;
-		}
-	}
+                if (newAlpha == 0f)
+                {
+                    sprite.QueueFree();
+                    IsBackgroundTransparentTransition = false;
+                }
+            }
+        }
+    }
+
+    public void TransitionBackgroundGradient(int nextLevel)
+    {
+        GradientTargetY = backgroundGradient.Position.Y + 700;
+        GradientIsMoving = true;
+    }
+
+    public void ModulateBackground(int nextLevel)
+    {
+        switch (nextLevel)
+        {
+            case 1:
+                transitionParallaxList = new List<Parallax2D> { verticalBackground };
+                IsBackgroundTransparentTransition = true;
+                break;
+
+            case 2:
+
+                transitionParallaxList = new List<Parallax2D> { fogParallax };
+                IsBackgroundTransparentTransition = true;
+                break;
+
+            case 3:
+
+                transitionParallaxList = new List<Parallax2D> { cloudParallax };
+                IsBackgroundTransparentTransition = true;
+                starsParallax.Visible = true;
+                break;
+
+            default:
+                return;
+        }
+    }
 }
