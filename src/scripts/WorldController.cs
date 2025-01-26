@@ -15,7 +15,7 @@ public partial class WorldController : Node2D
 	
 
 	public string currentlySpawning = "";
-	public bool bossSpawned;
+	public bool bossSpawned = false;
 	private SignalBus sgbus;
 	private AudioStreamPlayer AudioStreamPlayer;
 	private AudioStreamPlayer laul2;
@@ -98,6 +98,7 @@ public partial class WorldController : Node2D
 
         if (globals.currentLevel == 2)
         {
+			GD.Print("reached 2");
             spawntimer.WaitTime = 3f;
             CheckSpawnTimer();
             currentlySpawning = "jet";
@@ -106,6 +107,7 @@ public partial class WorldController : Node2D
 
 		if (globals.currentLevel == 3 && !bossSpawned)
 		{
+			GD.Print("reached 3");
 			bossSpawned = true;
 			Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
 			GetTree().CurrentScene.AddChild(bosss);

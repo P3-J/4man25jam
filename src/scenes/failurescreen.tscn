@@ -1,23 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://vf7dkbvy36iv"]
+[gd_scene load_steps=3 format=3 uid="uid://vf7dkbvy36iv"]
 
 [ext_resource type="Script" path="res://src/scripts/Failurescreen.cs" id="1_b664r"]
+[ext_resource type="Texture2D" uid="uid://bjp10htir8nbu" path="res://src/textures/endscreen.jpg" id="2_xpy52"]
 
 [node name="failurescreen" type="Node2D"]
 script = ExtResource("1_b664r")
-
-[node name="retry" type="Button" parent="."]
-offset_left = 128.0
-offset_top = 576.0
-offset_right = 320.0
-offset_bottom = 632.0
-text = "Retry"
-
-[node name="exit" type="Button" parent="."]
-offset_left = 512.0
-offset_top = 576.0
-offset_right = 704.0
-offset_bottom = 632.0
-text = "Exit"
 
 [node name="Label" type="Label" parent="."]
 offset_left = 144.0
@@ -26,6 +13,23 @@ offset_right = 712.0
 offset_bottom = 405.0
 theme_override_font_sizes/font_size = 32
 text = "You failed your glorious nation........."
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(412, 411)
+scale = Vector2(1.02927, 1.01463)
+texture = ExtResource("2_xpy52")
+
+[node name="retry" type="Button" parent="."]
+offset_left = 117.0
+offset_top = 632.0
+offset_right = 299.0
+offset_bottom = 705.0
+
+[node name="exit" type="Button" parent="."]
+offset_left = 561.0
+offset_top = 634.0
+offset_right = 746.0
+offset_bottom = 707.0
 
 [connection signal="pressed" from="retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]

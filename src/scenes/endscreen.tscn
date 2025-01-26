@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj4vwd0boxreo"]
+
+[ext_resource type="Script" path="res://src/scripts/Endscreen.cs" id="1_hf11i"]
+[ext_resource type="Texture2D" uid="uid://c0ein4qveg4p7" path="res://src/textures/endscreengood.jpg" id="2_0tev4"]
+
+[node name="endscreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hf11i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(414.5, 418)
+scale = Vector2(1.04268, 1.02439)
+texture = ExtResource("2_0tev4")
+
+[node name="retry" type="Button" parent="."]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 636.0
+offset_right = 289.0
+offset_bottom = 707.0
+
+[node name="exit" type="Button" parent="."]
+offset_left = 536.0
+offset_top = 636.0
+offset_right = 728.0
+offset_bottom = 707.0
+
+[connection signal="pressed" from="retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
