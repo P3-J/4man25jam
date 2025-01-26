@@ -18,6 +18,7 @@ public partial class WorldController : Node2D
 	public bool bossSpawned;
 	private SignalBus sgbus;
 	private AudioStreamPlayer AudioStreamPlayer;
+	private AudioStreamPlayer laul2;
 
 
 	[Export]
@@ -30,34 +31,37 @@ public partial class WorldController : Node2D
 		sgbus.Connect("StartGame", new Callable(this, nameof(StartGame)));
 		sgbus.Connect("SpawnEnemy", new Callable(this, nameof(SpawnEnemy)));
 
-        sgbus.Connect("SwitchToDeathScene", new Callable(this, nameof(SwitchToDeathScene)));
+		sgbus.Connect("SwitchToDeathScene", new Callable(this, nameof(SwitchToDeathScene)));
 
-        globals.exampleGlobal = 0;
-        globals.playerHeight = 0;
-        globals.currentLevel = 0;
+		globals.exampleGlobal = 0;
+		globals.playerHeight = 0;
+		globals.currentLevel = 0;
 
-        GD.Randomize();
-    }
+		GD.Randomize();
+
+		// Get the reference to the AudioStreamPlayer node
+		laul2 = GetNode<AudioStreamPlayer>("laul2");
+	}
 
 
 	public override void _Process(double delta)
 	{
 		if (bg.IsGameStartSequence){
 			globals.AddPlayerHeight((float)(globals.playerClimbSpeed * delta));
-            checkStage();
+			checkStage();
 		}
 
 		
-    }
+	}
 
-    public void SwitchToDeathScene(){
-        AnimationPlayer anim = GetNode<AnimationPlayer>("DeathScreenSwitch/AnimationPlayer");
-        anim.Play("fadeout");
-    }
+	public void SwitchToDeathScene(){
+		AnimationPlayer anim = GetNode<AnimationPlayer>("DeathScreenSwitch/AnimationPlayer");
+		anim.Play("fadeout");
+	}
 
-    public void ChangeSceneToFail(){
-        GetTree().ChangeSceneToFile("res://src/scenes/failurescreen.tscn");
-    }
+	public void ChangeSceneToFail(){
+		GetTree().ChangeSceneToFile("res://src/scenes/failurescreen.tscn");
+	}
 
 
 		
@@ -65,49 +69,50 @@ public partial class WorldController : Node2D
 		globals.player.Visible = true;
 	}
 
-    public void CheckSpawnTimer(){
-        if (spawntimer.IsStopped())
-        {
-            spawntimer.Start();
-        }
-    }
+	public void CheckSpawnTimer(){
+		if (spawntimer.IsStopped())
+		{
+			spawntimer.Start();
+		}
+	}
 
 
 
-    public void checkStage()
-    {
-        if (globals.currentLevel == 0)
-        {
-            spawntimer.WaitTime = 1f;
-            CheckSpawnTimer();
-            currentlySpawning = "fentplane";
-            return;
-        }
+	public void checkStage()
+	{
+		if (globals.currentLevel == 0)
+		{
+			spawntimer.WaitTime = 1f;
+			CheckSpawnTimer();
+			currentlySpawning = "fentplane";
+			return;
+		}
 
-        if (globals.currentLevel == 1)
-        {
-            spawntimer.WaitTime = 2f;
-            CheckSpawnTimer();
-            currentlySpawning = "eagle";
-            return;
-        }
+		if (globals.currentLevel == 1)
+		{
+			spawntimer.WaitTime = 2f;
+			CheckSpawnTimer();
+			currentlySpawning = "eagle";
+			return;
+		}
 
-        if (globals.currentLevel == 2)
-        {
-            spawntimer.WaitTime = 1f;
-            CheckSpawnTimer();
-            currentlySpawning = "fentplane";
-            return;
-        }
+		if (globals.currentLevel == 2)
+		{
+			spawntimer.WaitTime = 1f;
+			CheckSpawnTimer();
+			currentlySpawning = "fentplane";
+			return;
+		}
 
-        if (globals.currentLevel == 4 && !bossSpawned)
-        {
-            bossSpawned = true;
-            Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
-            GetTree().CurrentScene.AddChild(bosss);
-            return;
-        }
-    }
+		if (globals.currentLevel == 4 && !bossSpawned)
+		{
+			bossSpawned = true;
+			Bossscenemanager bosss = boss.Instantiate<Bossscenemanager>();
+			GetTree().CurrentScene.AddChild(bosss);
+			laul2.Stop();
+			return;
+		}
+	}
 
 
 	public void SpawnEnemy(string enemytype)
