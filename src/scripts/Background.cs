@@ -124,6 +124,7 @@ public partial class Background : Node2D
             case 2:
 
                 transitionParallaxList = new List<Parallax2D> { fogParallax };
+                cloudParallax.Modulate = new Color(1, 1, 1, 0.3f);
                 IsBackgroundTransparentTransition = true;
                 break;
 
