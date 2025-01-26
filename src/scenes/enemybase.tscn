@@ -143,10 +143,10 @@ position = Vector2(0, -192)
 
 [node name="markerman" type="Sprite2D" parent="raycastparent"]
 visible = false
-modulate = Color(100, 0.068, 0, 1)
+modulate = Color(0.353, 100, 0, 1)
 z_index = -1
-position = Vector2(0, -96)
-scale = Vector2(0.02, 1.5)
+position = Vector2(0, -75)
+scale = Vector2(0.0625, 0.0625)
 texture = ExtResource("9_12abf")
 
 [node name="misc" type="Node" parent="."]

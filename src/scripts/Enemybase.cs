@@ -53,11 +53,11 @@ public partial class Enemybase : CharacterBody2D
 			enemysprite.Animation = "eagle";
 		}
 
-		if (enemyname == "jet"){
-			Speed = 100f;
-			enemysprite.Animation = "jet";
-			aimthing.Visible = true;
-		}
+        if (enemyname == "jet"){
+            Speed = 250f;
+            Scale = new Vector2(1.25f, 1.25f);
+            enemysprite.Animation = "jet";
+        }
 
 		enemysprite.Play();
 		
@@ -87,7 +87,6 @@ public partial class Enemybase : CharacterBody2D
 			   
 				enemysprite.FlipV = globals.player.GlobalPosition.X < GlobalPosition.X;
 			
-
 				isAggro = true;
 				dir = (globals.player.GlobalPosition - GlobalPosition).Normalized();
 			}
@@ -177,7 +176,8 @@ public partial class Enemybase : CharacterBody2D
 		crntBubble.ZIndex = 0;
 		crntBubble.enemyowner = true;
 		crntBubble.dir = (AimPos - Position).Normalized();
-		crntBubble.Scale = new Vector2(0.25f, 0.25f);
+        crntBubble.speed = 300f;
+        crntBubble.Scale = new Vector2(0.75f, 0.75f); 
 		GetTree().CurrentScene.AddChild(crntBubble);
 		crntBubble.GlobalPosition = GlobalPosition;
 	}
